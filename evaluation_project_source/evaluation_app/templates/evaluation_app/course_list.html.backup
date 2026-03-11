@@ -1,0 +1,53 @@
+{% extends "evaluation_app/base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>قائمة المواد الدراسية</h1>
+    <a href="{% url 'course_create' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> إضافة مادة دراسية
+    </a>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+{% if courses %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>المعرف</th>
+                <th>معرف المادة</th>
+                <th>اسم المادة</th>
+                <th>الأستاذ</th>
+                <th>الإجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course.cid }}</td>
+                <td>{{ course.courseid|default:"غير متوفر" }}</td>
+                <td>{{ course.coursename|default:"غير متوفر" }}</td>
+                <td>{{ course.prof.profname|default:"غير متوفر" }}</td>
+                <td>
+                    <a href="{% url 'course_update' course.cid %}" class="btn btn-sm btn-warning">تعديل</a>
+                    <a href="{% url 'course_delete' course.cid %}" class="btn btn-sm btn-danger">حذف</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-warning" role="alert">
+    لم يتم العثور على مواد دراسية.
+</div>
+{% endif %}
+{% endblock %}

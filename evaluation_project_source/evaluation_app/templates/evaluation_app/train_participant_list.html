@@ -1,0 +1,182 @@
+{% extends "evaluation_app/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'evaluation_app/css/list_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Modern Header Section -->
+<div class="list-header-section">
+    <div class="list-title-wrapper">
+        <div class="list-icon-badge">
+            <i class="bi bi-people-fill"></i>
+        </div>
+        <div class="list-title-content">
+            <h1 class="list-main-title">{% trans "Training Participants" %}</h1>
+            <p class="list-subtitle">{% trans "Manage participants enrolled in training sessions" %}</p>
+        </div>
+    </div>
+    <div class="list-actions">
+        <a href="{% url 'train_participant_create' %}" class="btn-list-add">
+            <i class="bi bi-plus-circle"></i>
+            <span>{% trans "Add Training Participant" %}</span>
+        </a>
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<!-- Enhanced Search Section -->
+<div class="list-search-card">
+    <form method="get" action="{% url 'train_participant_list' %}" id="searchForm">
+        <div class="list-search-input-container">
+            <i class="bi bi-search list-search-icon"></i>
+            <input type="text" 
+                   name="search" 
+                   class="list-search-input" 
+                   id="searchInput"
+                   placeholder="{% trans 'Search by participant name, training ID, or course...' %}" 
+                   value="{{ search_query|default:'' }}" 
+                   autocomplete="off">
+            <div class="list-search-loading" id="searchLoading">
+                <div class="list-search-spinner"></div>
+            </div>
+            {% if search_query %}
+            <a href="{% url 'train_participant_list' %}" class="list-search-clear">
+                <i class="bi bi-x-circle-fill"></i>
+            </a>
+            {% endif %}
+        </div>
+        {% if search_query %}
+        <div class="list-search-info-bar">
+            <div class="search-query-badge">
+                <i class="bi bi-filter-circle-fill"></i>
+                <span class="search-query-label">{% trans "Searching for:" %}</span>
+                <strong>"{{ search_query }}"</strong>
+            </div>
+            <div class="search-results-badge">
+                <i class="bi bi-check-circle-fill"></i>
+                <strong>{{ total_count }}</strong> {% trans "result(s)" %}
+            </div>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+<!-- Training Participants Table -->
+<div class="list-table-card">
+    <div class="list-table-header">
+        <div class="list-table-title">
+            <i class="bi bi-list-ul"></i>
+            <span>{% trans "All Training Participants" %}</span>
+        </div>
+        <div class="list-table-count-badge">
+            <i class="bi bi-database-fill"></i>
+            <strong>{{ total_count }}</strong> {% trans "total" %}
+        </div>
+    </div>
+    
+    <div class="list-table-responsive">
+        <table class="list-table">
+            <thead>
+                <tr>
+                    <th>{% trans "ID" %}</th>
+                    <th>{% trans "Training Session" %}</th>
+                    <th>{% trans "Participant" %}</th>
+                    <th>{% trans "Evaluation Date" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th class="td-actions">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if train_participants %}
+                    {% for tp in train_participants %}
+                    <tr>
+                        <td data-label="{% trans 'ID' %}">
+                            <span class="list-badge list-badge-primary">{{ tp.train_participant_id }}</span>
+                        </td>
+                        <td data-label="{% trans 'Training Session' %}">
+                            {% if tp.train %}
+                                <div>
+                                    <strong>Train #{{ tp.train.trainid }}</strong>
+                                    {% if tp.train.course %}
+                                        <br><small class="text-muted">{{ tp.train.course.coursename }}</small>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <span class="text-muted">{% trans "N/A" %}</span>
+                            {% endif %}
+                        </td>
+                        <td data-label="{% trans 'Participant' %}">
+                            {% if tp.participant %}
+                                {{ tp.participant.participant_name }}
+                            {% else %}
+                                <span class="text-muted">{% trans "N/A" %}</span>
+                            {% endif %}
+                        </td>
+                        <td data-label="{% trans 'Evaluation Date' %}">
+                            {% if tp.evaluation_date %}
+                                <i class="bi bi-calendar-event"></i> {{ tp.evaluation_date }}
+                            {% else %}
+                                <span class="text-muted">{% trans "N/A" %}</span>
+                            {% endif %}
+                        </td>
+                        <td data-label="{% trans 'Status' %}">
+                            {% if tp.is_active %}
+                                <span class="list-badge list-badge-success">
+                                    <i class="bi bi-check-circle"></i> {% trans "Active" %}
+                                </span>
+                            {% else %}
+                                <span class="list-badge list-badge-secondary">
+                                    <i class="bi bi-x-circle"></i> {% trans "Inactive" %}
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td data-label="{% trans 'Actions' %}" class="td-actions">
+                            <div class="action-buttons">
+                                <a href="{% url 'train_participant_update' tp.train_participant_id %}" 
+                                   class="btn-table-edit" 
+                                   title="{% trans 'Edit' %}">
+                                    <i class="bi bi-pencil-square"></i>
+                                    <span>{% trans "Edit" %}</span>
+                                </a>
+                                <a href="{% url 'train_participant_delete' tp.train_participant_id %}" 
+                                   class="btn-table-delete" 
+                                   title="{% trans 'Delete' %}">
+                                    <i class="bi bi-trash3"></i>
+                                    <span>{% trans "Delete" %}</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="list-empty-state">
+                            <div class="list-empty-icon">
+                                <i class="bi bi-inbox"></i>
+                            </div>
+                            <div class="list-empty-message">
+                                {% if search_query %}
+                                    {% trans "No training participants found matching your search." %}
+                                {% else %}
+                                    {% trans "No training participants available. Click 'Add Training Participant' to create one." %}
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

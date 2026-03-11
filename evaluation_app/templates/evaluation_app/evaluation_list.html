@@ -1,0 +1,365 @@
+{% extends "evaluation_app/base.html" %}
+{% load evaluation_extras %}
+{% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'evaluation_app/css/list_style.css' %}">
+<link rel="stylesheet" href="{% static 'evaluation_app/css/evaluation_list.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="list-header-section">
+    <div class="list-title-wrapper">
+        <div class="list-icon-badge">
+            <i class="bi bi-clipboard-check-fill"></i>
+        </div>
+        <div class="list-title-content">
+            <h1 class="list-main-title">{% trans "Evaluation List" %}</h1>
+            <p class="list-subtitle">{% trans "Manage and view all evaluations" %}</p>
+        </div>
+    </div>
+    <div class="list-actions">
+        <a href="{% url 'evaluation_create' %}" class="btn-list-add">
+            <i class="bi bi-plus-circle"></i>
+            <span>{% trans "Add Evaluation" %}</span>
+        </a>
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+ {% if user.profile.role != 'guest' %}
+    
+    <div class="list-search-card">
+        <div class="list-search-input-container">
+            <i class="bi bi-search list-search-icon"></i>
+            <input type="text" 
+                class="list-search-input" 
+                id="instantSearch" 
+                placeholder="{% trans 'Search evaluations by any field...' %}" 
+                autocomplete="off">
+            <button class="list-search-clear" type="button" id="clearSearch" style="display:none;">
+                <i class="bi bi-x-circle-fill"></i>
+            </button>
+        </div>
+        <div id="searchStats" class="list-search-info-bar" style="display:none;">
+            <div class="search-query-badge">
+                <i class="bi bi-filter-circle-fill"></i>
+                <span class="match-count" id="matchCount">0</span> {% trans "results found" %}
+                <span class="search-term-text" id="searchTerm"></span>
+            </div>
+        </div>
+    </div>
+
+    {% if evaluations %}
+    <div class="list-table-container">
+        <table class="list-table table-search-enhanced">
+            <thead>
+                <tr>
+                    <th style="width: 6%;">
+                        <i class="bi bi-hash"></i>
+                        <span>{% trans "ID" %}</span>
+                    </th>
+                    <th style="width: 12%;">
+                        <i class="bi bi-person"></i>
+                        <span>{% trans "Participant" %}</span>
+                    </th>
+                    <th style="width: 10%;">
+                        <i class="bi bi-mortarboard-fill"></i>
+                        <span>{% trans "Train ID" %}</span>
+                    </th>
+                    <th style="width: 15%;">
+                        <i class="bi bi-book"></i>
+                        <span>{% trans "Course" %}</span>
+                    </th>
+                    <th style="width: 13%;">
+                        <i class="bi bi-person-workspace"></i>
+                        <span>{% trans "Professor" %}</span>
+                    </th>
+                    <th style="width: 12%;">
+                        <i class="bi bi-geo-alt"></i>
+                        <span>{% trans "Location" %}</span>
+                    </th>
+                    <th style="width: 10%;">
+                        <i class="bi bi-calendar"></i>
+                        <span>{% trans "Date" %}</span>
+                    </th>
+                    <th style="width: 8%;">
+                        <i class="bi bi-graph-up"></i>
+                        <span>{% trans "Avg" %}</span>
+                    </th>
+                    <th style="width: 10%;">
+                        <i class="bi bi-gear-fill"></i>
+                        <span>{% trans "Actions" %}</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evaluation in evaluations %}
+                <tr>
+                    <td class="td-id">
+                        <span class="id-badge">{{ evaluation.id }}</span>
+                    </td>
+                    <td><span style="color: #64748b;">{{ evaluation.participant.participant_name|default:"N/A" }}</span></td>
+                    <td>
+                        {% if evaluation.train %}
+                            <span class="list-badge list-badge-primary">Train #{{ evaluation.train.trainid }}</span>
+                        {% else %}
+                            <span class="text-muted">{% trans "N/A" %}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span style="color: #64748b;">
+                            {% if evaluation.train and evaluation.train.course %}
+                                {{ evaluation.train.course.coursename }}
+                            {% else %}
+                                {% trans "N/A" %}
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span style="color: #64748b;">
+                            {% if evaluation.train and evaluation.train.professor %}
+                                {{ evaluation.train.professor.profname }}
+                            {% else %}
+                                {% trans "N/A" %}
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span style="color: #64748b;">
+                            {% if evaluation.train and evaluation.train.location %}
+                                {{ evaluation.train.location.locationname }}
+                            {% else %}
+                                {% trans "N/A" %}
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        <span style="font-weight: 600; color: #475569;">
+                            {% if evaluation.train and evaluation.train.train_date %}
+                                {{ evaluation.train.train_date }}
+                            {% else %}
+                                {% trans "N/A" %}
+                            {% endif %}
+                        </span>
+                    </td>
+                    <td>
+                        {% with avg=evaluation.get_q_average %}
+                            {% if avg is not None %}
+                                <span style="font-weight: 700; color: #10b981;">{{ avg|floatformat:2 }}</span>
+                            {% else %}
+                                <span style="color: #94a3b8;">{% trans "N/A" %}</span>
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td class="td-actions">
+                        <div class="action-buttons">
+                            <a href="{% url 'evaluation_download_pdf' evaluation.id %}" class="btn-table-view" title="{% trans 'Download PDF' %}" target="_blank">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                                <span>{% trans "PDF" %}</span>
+                            </a>
+                            <a href="{% url 'evaluation_update' evaluation.id %}" class="btn-table-edit" title="{% trans 'Edit' %}">
+                                <i class="bi bi-pencil-square"></i>
+                                <span>{% trans "Edit" %}</span>
+                            </a>
+                            <a href="{% url 'evaluation_delete' evaluation.id %}" class="btn-table-delete" title="{% trans 'Delete' %}">
+                                <i class="bi bi-trash3"></i>
+                                <span>{% trans "Delete" %}</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="list-empty-state">
+        <div class="empty-state-animation">
+            <i class="bi bi-clipboard-check"></i>
+        </div>
+        <h3 class="empty-state-title">{% trans "No Evaluations Found" %}</h3>
+        <p class="empty-state-message">
+            {% trans "No evaluations have been added yet." %}
+        </p>
+        <a href="{% url 'evaluation_create' %}" class="empty-state-action">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>{% trans "Add Your First Evaluation" %}</span>
+        </a>
+    </div>
+    {% endif %}
+{% endif %}
+{% endblock %}
+{% block extra_js %}
+<script>
+// Advanced Client-Side Search Engine with Arabic Support
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('instantSearch');
+    const clearBtn = document.getElementById('clearSearch');
+    const searchStats = document.getElementById('searchStats');
+    const matchCount = document.getElementById('matchCount');
+    const searchTerm = document.getElementById('searchTerm');
+    const tableBody = document.querySelector('table tbody');
+    const allRows = tableBody ? Array.from(tableBody.querySelectorAll('tr')) : [];
+    const totalRows = allRows.length;
+    
+    // Normalize Arabic text for better matching
+    function normalizeArabic(text) {
+        if (!text) return '';
+        
+        // Convert to lowercase for case-insensitive matching
+        text = text.toLowerCase().trim();
+        
+        // Remove Arabic diacritics (tashkeel)
+        text = text.replace(/[\u064B-\u065F\u0670]/g, '');
+        
+        // Normalize Arabic characters
+        text = text.replace(/[أإآ]/g, 'ا'); // Normalize alef variations
+        text = text.replace(/ى/g, 'ي'); // Normalize yaa
+        text = text.replace(/ة/g, 'ه'); // Normalize taa marbouta to haa
+        text = text.replace(/ؤ/g, 'و'); // Normalize waw with hamza
+        text = text.replace(/ئ/g, 'ي'); // Normalize yaa with hamza
+        
+        // Remove extra whitespace
+        text = text.replace(/\s+/g,'');
+        
+        return text;
+    }
+    
+    // Store original data for each row with normalized text
+    const rowData = allRows.map(row => {
+        const cells = row.querySelectorAll('td');
+        const originalText = Array.from(cells).map(cell => cell.textContent.trim()).join(' ');
+        const normalizedText = normalizeArabic(originalText);
+        
+        return {
+            element: row,
+            text: normalizedText,
+            originalText: originalText
+        };
+    });
+    
+    function performSearch() {
+        const query = searchInput.value.trim();
+        
+        if (!query) {
+            // Show all rows when search is empty
+            rowData.forEach(item => {
+                item.element.style.display = '';
+                item.element.style.backgroundColor = '';
+            });
+            searchStats.style.display = 'none';
+            clearBtn.style.display = 'none';
+            return;
+        }
+        
+        clearBtn.style.display = 'block';
+        
+        // Normalize search query
+        const normalizedQuery = normalizeArabic(query);
+        
+        // Split query into words for multi-word matching
+        const searchWords = normalizedQuery.split(/\s+/).filter(word => word.length > 0);
+        let visibleCount = 0;
+        
+        rowData.forEach(item => {
+            // Check if ALL search words are found in the row text
+            const matches = searchWords.every(word => item.text.includes(word));
+            
+            if (matches) {
+                item.element.style.display = '';
+                visibleCount++;
+                // Highlight matching row
+                item.element.style.backgroundColor = '#fffbea';
+            } else {
+                item.element.style.display = 'none';
+                item.element.style.backgroundColor = '';
+            }
+        });
+        
+        // Update search stats
+        matchCount.textContent = visibleCount;
+        searchTerm.textContent = `{% trans "for" %} "${query}"`;
+        searchStats.style.display = 'block';
+        
+        // Show no results message if needed
+        updateNoResultsMessage(visibleCount, query);
+    }
+    
+    function updateNoResultsMessage(count, query) {
+        let noResultsDiv = document.getElementById('noResultsMessage');
+        
+        if (count === 0 && query) {
+            if (!noResultsDiv) {
+                noResultsDiv = document.createElement('div');
+                noResultsDiv.id = 'noResultsMessage';
+                noResultsDiv.className = 'alert alert-info mt-3';
+                noResultsDiv.innerHTML = `
+                    <h5><i class="bi bi-info-circle"></i> {% trans "No Results Found" %}</h5>
+                    <p>{% trans "No evaluations match your search. Try:" %}</p>
+                    <ul>
+                        <li>{% trans "Using different keywords" %}</li>
+                        <li>{% trans "Checking your spelling" %}</li>
+                        <li>{% trans "Using fewer search terms" %}</li>
+                        <li>{% trans "Typing without diacritics for Arabic text" %}</li>
+                    </ul>
+                `;
+                // Safely append to table container
+                if (tableBody && tableBody.parentElement && tableBody.parentElement.parentElement) {
+                    tableBody.parentElement.parentElement.appendChild(noResultsDiv);
+                } else {
+                    // Fallback: append after the table
+                    const tableDiv = document.querySelector('.table-responsive');
+                    if (tableDiv && tableDiv.parentElement) {
+                        tableDiv.parentElement.appendChild(noResultsDiv);
+                    }
+                }
+            }
+            if (noResultsDiv) {
+                noResultsDiv.style.display = 'block';
+            }
+        } else if (noResultsDiv) {
+            noResultsDiv.style.display = 'none';
+        }
+    }
+    
+    function clearSearch() {
+        searchInput.value = '';
+        performSearch();
+        searchInput.focus();
+    }
+    
+    // Event listeners
+    if (searchInput) {
+        // Instant search as you type
+        searchInput.addEventListener('input', performSearch);
+        
+        // Clear button
+        if (clearBtn) {
+            clearBtn.addEventListener('click', clearSearch);
+        }
+        
+        // Escape key to clear
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                clearSearch();
+            }
+        });
+    }
+    
+    // Initial load - show total count
+    if (searchInput && totalRows > 0) {
+        console.log(`Search initialized with ${totalRows} evaluations`);
+    }
+});
+</script>
+{% endblock %}

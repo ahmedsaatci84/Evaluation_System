@@ -1,0 +1,104 @@
+{% extends "evaluation_app/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_css %}
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">
+            {% if train_participant %}
+                {% trans "Edit Training Participant" %}
+            {% else %}
+                {% trans "Add Training Participant" %}
+            {% endif %}
+        </h1>
+        
+        <form method="post" class="needs-validation" novalidate id="trainParticipantForm"
+              {% if train_participant %}data-train-participant-id="{{ train_participant.train_participant_id }}"{% endif %}>
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="train" class="form-label">{% trans "Training Session" %} *</label>
+                <select class="form-select searchable-select" id="train" name="train" required>
+                    <option value="">{% trans "Select Training Session" %}</option>
+                    {% for training in training_sessions %}
+                    <option value="{{ training.trainid }}" 
+                            {% if train_participant and train_participant.train_id == training.trainid %}selected
+                            {% elif preselected_train_id and training.trainid|stringformat:"s" == preselected_train_id %}selected{% endif %}>
+                        Train #{{ training.trainid }} - {{ training.course.coursename|default:"N/A" }} 
+                        ({{ training.train_date|default:"No Date" }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="participant" class="form-label">{% trans "Participant" %} *</label>
+                <select class="form-select searchable-select" id="participant" name="participant" required>
+                    <option value="">{% if train_participant %}{% trans "Loading..." %}{% else %}{% trans "Select Training Session first" %}{% endif %}</option>
+                    {% if train_participant and train_participant.participant %}
+                        <option value="{{ train_participant.participant.participant_id }}" selected>
+                            {{ train_participant.participant.participant_name }}
+                        </option>
+                    {% endif %}
+                </select>
+                <div class="invalid-feedback">
+                    {% trans "Please select a participant" %}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="evaluation_date" class="form-label">{% trans "Evaluation Date" %}</label>
+                <input type="date" class="form-control" id="evaluation_date" name="evaluation_date" 
+                       value="{% if train_participant and train_participant.evaluation_date %}{{ train_participant.evaluation_date|date:'Y-m-d' }}{% endif %}">
+            </div>
+            
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="is_active" name="is_active" 
+                       {% if not train_participant or train_participant.is_active %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">
+                    {% trans "Active" %}
+                </label>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> {% trans "Save" %}
+                </button>
+                <a href="{% url 'train_participant_list' %}" class="btn btn-secondary">
+                    <i class="bi bi-x-circle"></i> {% trans "Cancel" %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery (required for Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- Translations for JavaScript -->
+<script>
+window.trainParticipantFormTranslations = {
+    noResults: "{% trans 'No results found' %}",
+    searching: "{% trans 'Searching...' %}",
+    selectTrainingSession: "{% trans 'Select Training Session' %}",
+    selectParticipant: "{% trans 'Select Participant' %}",
+    loadingParticipants: "{% trans 'Loading participants...' %}",
+    noParticipants: "{% trans 'No available participants for this training' %}",
+    errorLoading: "{% trans 'Error loading participants' %}",
+    selectTrainingFirst: "{% trans 'Select Training Session first' %}"
+};
+</script>
+
+<!-- Train Participant Form JavaScript -->
+<script src="{% static 'evaluation_app/js/train_participant_form.js' %}"></script>
+
+{% endblock %}

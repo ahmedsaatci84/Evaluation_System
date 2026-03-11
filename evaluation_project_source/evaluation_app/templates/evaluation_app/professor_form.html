@@ -1,0 +1,65 @@
+{% extends "evaluation_app/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mb-4">{% if professor %}تعديل{% else %}إضافة{% endif %} أستاذ</h1>
+        
+        <!-- Display Messages (Success/Error) -->
+        {% if messages %}
+        <div class="mb-3">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <form method="post" class="needs-validation">
+            {% csrf_token %}
+            
+            {% if not professor %}
+            <div class="mb-3">
+                <label for="profid" class="form-label">معرف الأستاذ *</label>
+                <input type="number" class="form-control" id="profid" name="profid"  maxlength="6"
+                       value="{{ profid|default:'' }}"
+                    placeholder="أدخل معرف الأستاذ">
+                    <div class="invalid-feedback">
+                        {% trans "الرجاء ادخال بيانات اسم المعرف" %}
+                    </div>
+                
+            </div>
+            {% endif %}
+            
+            <div class="mb-3">
+                <label for="profname" class="form-label">الاسم *</label>
+                <input type="text" class="form-control" id="profname" name="profname" 
+                       value="{% if professor %}{{ professor.profname }}{% else %}{{ profname|default:'' }}{% endif %}" 
+                       maxlength="50" placeholder="أدخل اسم الأستاذ">
+                    <div class="invalid-feedback">
+                        {% trans "الرجاء ادخال بيانات اسم الاستاذ" %}
+                    </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="prophone" class="form-label">الهاتف</label>
+                <input type="number" class="form-control" id="prophone" name="prophone"  maxlength="15"
+                       value="{% if professor %}{{ professor.prophone }}{% else %}{{ prophone|default:'' }}{% endif %}"
+                       placeholder="أدخل رقم الهاتف" >
+                    <div class="invalid-feedback">
+                        {% trans "الرجاء ادخال بيانات رقم الهاتف" %}
+                    </div>
+               
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">حفظ</button>
+                <a href="{% url 'professor_list' %}" class="btn btn-secondary">إلغاء</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

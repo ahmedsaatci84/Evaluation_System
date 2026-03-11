@@ -1,0 +1,176 @@
+{% extends "evaluation_app/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "System Settings" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'evaluation_app/css/dashboard.css' %}">
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-gradient-primary text-white">
+            <h2 class="mb-0">
+                <i class="fas fa-cog"></i>
+                {% trans "System Settings" %}
+            </h2>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'manage_system_settings' %}">
+                {% csrf_token %}
+                
+                <!-- System Status Section -->
+                <div class="settings-section mb-4">
+                    <h4 class="section-title">
+                        <i class="fas fa-power-off"></i>
+                        {% trans "System Status" %}
+                    </h4>
+                    <div class="status-indicator mb-3">
+                        <span class="badge {% if settings.is_system_open %}badge-success{% else %}badge-danger{% endif %} p-3">
+                            {% if settings.is_system_open %}
+                                <i class="fas fa-check-circle"></i> {% trans "System is OPEN" %}
+                            {% else %}
+                                <i class="fas fa-times-circle"></i> {% trans "System is CLOSED" %}
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="is_system_open" 
+                               name="is_system_open" {% if settings.is_system_open %}checked{% endif %}
+                               style="width: 60px; height: 30px;">
+                        <label class="form-check-label ms-2" for="is_system_open" style="font-size: 18px;">
+                            {% trans "Keep System Open" %}
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Closure Message Section -->
+                <div class="settings-section mb-4">
+                    <h4 class="section-title">
+                        <i class="fas fa-comment-alt"></i>
+                        {% trans "Closure Message" %}
+                    </h4>
+                    <div class="mb-3">
+                        <label for="closure_message" class="form-label">
+                            {% trans "Message to display when system is closed" %}
+                        </label>
+                        <textarea class="form-control" id="closure_message" name="closure_message" 
+                                  rows="4" placeholder="{% trans 'Enter maintenance message...' %}">{{ settings.closure_message }}</textarea>
+                    </div>
+                </div>
+                
+                <!-- Closure End Date Section -->
+                <div class="settings-section mb-4">
+                    <h4 class="section-title">
+                        <i class="far fa-calendar-alt"></i>
+                        {% trans "Expected Closure End" %}
+                    </h4>
+                    <div class="mb-3">
+                        <label for="closure_end_date" class="form-label">
+                            {% trans "When do you expect the system to reopen?" %}
+                        </label>
+                        <input type="datetime-local" class="form-control" id="closure_end_date" 
+                               name="closure_end_date" 
+                               value="{% if settings.closure_end_date %}{{ settings.closure_end_date|date:'Y-m-d\TH:i' }}{% endif %}">
+                    </div>
+                </div>
+                
+                <!-- Admin Access Section -->
+                <div class="settings-section mb-4">
+                    <h4 class="section-title">
+                        <i class="fas fa-user-shield"></i>
+                        {% trans "Admin Access" %}
+                    </h4>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="allow_admin_access" 
+                               name="allow_admin_access" {% if settings.allow_admin_access %}checked{% endif %}
+                               style="width: 60px; height: 30px;">
+                        <label class="form-check-label ms-2" for="allow_admin_access" style="font-size: 18px;">
+                            {% trans "Allow admin users to access when system is closed" %}
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Last Updated Info -->
+                {% if settings.last_updated %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Last updated" %}: {{ settings.last_updated|date:"F d, Y - H:i" }}
+                    {% if settings.updated_by %}
+                        {% trans "by" %} <strong>{{ settings.updated_by.username }}</strong>
+                    {% endif %}
+                </div>
+                {% endif %}
+                
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-save"></i>
+                        {% trans "Save Settings" %}
+                    </button>
+                    <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-arrow-left"></i>
+                        {% trans "Back to Dashboard" %}
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.settings-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.section-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.section-title i {
+    color: #667eea;
+    margin-right: 10px;
+}
+
+.status-indicator {
+    text-align: center;
+}
+
+.form-check-input:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.badge-success {
+    background-color: #27ae60 !important;
+    font-size: 16px;
+}
+
+.badge-danger {
+    background-color: #e74c3c !important;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+</style>
+
+{% endblock %}

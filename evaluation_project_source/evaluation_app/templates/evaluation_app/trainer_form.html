@@ -1,0 +1,43 @@
+{% extends "evaluation_app/base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="mb-4">{% if trainer %}تعديل{% else %}إضافة{% endif %} مدرب</h1>
+        
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            {% if not trainer %}
+            <div class="mb-3">
+                <label for="train_id" class="form-label">معرف المدرب *</label>
+                <input type="number" class="form-control" id="train_id" name="train_id" required>
+            </div>
+            {% endif %}
+            
+            <div class="mb-3">
+                <label for="train_name" class="form-label">الاسم *</label>
+                <input type="text" class="form-control" id="train_name" name="train_name" 
+                       value="{% if trainer %}{{ trainer.train_name }}{% endif %}" required maxlength="35">
+            </div>
+            
+            <div class="mb-3">
+                <label for="train_phone" class="form-label">الهاتف</label>
+                <input type="number" class="form-control" id="train_phone" name="train_phone" 
+                       value="{% if trainer %}{{ trainer.train_phone }}{% endif %}">
+            </div>
+            
+            <div class="mb-3">
+                <label for="train_email" class="form-label">البريد الإلكتروني</label>
+                <input type="email" class="form-control" id="train_email" name="train_email" 
+                       value="{% if trainer %}{{ trainer.train_email }}{% endif %}" maxlength="50">
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">حفظ</button>
+                <a href="{% url 'trainer_list' %}" class="btn btn-secondary">إلغاء</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

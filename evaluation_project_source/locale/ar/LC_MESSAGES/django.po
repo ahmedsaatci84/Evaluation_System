@@ -1,0 +1,863 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Evaluation System 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-10 12:00+0000\n"
+"PO-Revision-Date: 2026-02-10 12:00+0000\n"
+"Last-Translator: Auto Generated\n"
+"Language-Team: ar\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Base and Common
+msgid "Evaluation System"
+msgstr "نظام التقييم"
+
+msgid "Toggle Sidebar"
+msgstr "تبديل الشريط الجانبي"
+
+msgid "Loading..."
+msgstr "جاري التحميل..."
+
+msgid "Home"
+msgstr "الرئيسية"
+
+msgid "Evaluations"
+msgstr "التقييمات"
+
+msgid "Professors"
+msgstr "الأساتذة"
+
+msgid "Courses"
+msgstr "المواد الدراسية"
+
+msgid "Participants"
+msgstr "المشاركين"
+
+msgid "Locations"
+msgstr "المواقع"
+
+msgid "All Rights Reserved"
+msgstr "جميع الحقوق محفوظة"
+
+msgid "Privacy"
+msgstr "الخصوصية"
+
+msgid "Support"
+msgstr "الدعم"
+
+msgid "System Version"
+msgstr "إصدار النظام"
+
+msgid "Welcome to the Evaluation System"
+msgstr "مرحباً بك في نظام التقييم"
+
+msgid "This is a web application built with Django 5.2 and Python 3.13.7 and Bootstrap 5, connected to MSSQL 2012 database."
+msgstr "هذا تطبيق ويب مبني باستخدام Django 5.2 و Python 3.13.7 و Bootstrap 5، متصل بقاعدة بيانات MSSQL 2012."
+
+msgid "Use the navigation bar above to view data from your database tables."
+msgstr "استخدم شريط التنقل أعلاه لعرض البيانات من جداول قاعدة البيانات الخاصة بك."
+
+msgid "View all submitted evaluations."
+msgstr "عرض جميع التقييمات المقدمة."
+
+msgid "View Evaluations"
+msgstr "عرض التقييمات"
+
+msgid "Professors and Courses"
+msgstr "الأساتذة والمواد الدراسية"
+
+msgid "Manage and view professors and courses information."
+msgstr "إدارة وعرض معلومات الأساتذة والمواد الدراسية."
+
+msgid "View Professors"
+msgstr "عرض الأساتذة"
+
+msgid "Participants and Locations"
+msgstr "المشاركين والمواقع"
+
+msgid "Manage and view participants and locations data."
+msgstr "إدارة وعرض بيانات المشاركين والمواقع."
+
+msgid "View Participants"
+msgstr "عرض المشاركين"
+
+# Common Fields
+msgid "ID"
+msgstr "المعرف"
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "Phone"
+msgstr "الهاتف"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Actions"
+msgstr "الإجراءات"
+
+msgid "Edit"
+msgstr "تعديل"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "Download PDF"
+msgstr "تنزيل PDF"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+msgid "Add"
+msgstr "إضافة"
+
+msgid "N/A"
+msgstr "غير متوفر"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Status"
+msgstr "الحالة"
+
+msgid "Active"
+msgstr "نشط"
+
+msgid "Inactive"
+msgstr "غير نشط"
+
+# Search and Filters
+msgid "Searching for:"
+msgstr "البحث عن:"
+
+msgid "result(s)"
+msgstr "نتيجة"
+
+msgid "total"
+msgstr "الإجمالي"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "result(s) found"
+msgstr "نتيجة موجودة"
+
+msgid "Clear Search"
+msgstr "مسح البحث"
+
+msgid "Search Tips:"
+msgstr "نصائح البحث:"
+
+msgid "Check your spelling"
+msgstr "تحقق من الإملاء"
+
+msgid "Try different keywords"
+msgstr "جرب كلمات مفتاحية مختلفة"
+
+msgid "Use more general terms"
+msgstr "استخدم مصطلحات أكثر عمومية"
+
+msgid "Try searching by ID or phone"
+msgstr "حاول البحث بالمعرف أو الهاتف"
+
+msgid "Try searching by ID, phone, or email"
+msgstr "حاول البحث بالمعرف أو الهاتف أو البريد الإلكتروني"
+
+msgid "No results match your search query"
+msgstr "لا توجد نتائج تطابق بحثك"
+
+# Professors
+msgid "Professor List"
+msgstr "قائمة الأساتذة"
+
+msgid "Add Professor"
+msgstr "إضافة أستاذ"
+
+msgid "Manage and view all professors"
+msgstr "إدارة وعرض جميع الأساتذة"
+
+msgid "Search professors by name, ID, or phone number..."
+msgstr "البحث عن الأساتذة بالاسم أو المعرف أو رقم الهاتف..."
+
+msgid "No Professors Found"
+msgstr "لم يتم العثور على أساتذة"
+
+msgid "No professors found."
+msgstr "لم يتم العثور على أساتذة."
+
+msgid "No professors have been added yet."
+msgstr "لم تتم إضافة أي أساتذة بعد."
+
+msgid "Add Your First Professor"
+msgstr "أضف أستاذك الأول"
+
+msgid "Professor"
+msgstr "الأستاذ"
+
+msgid "Professor ID"
+msgstr "معرف الأستاذ"
+
+msgid "Professor:"
+msgstr "الأستاذ:"
+
+msgid "Select Professor"
+msgstr "اختر أستاذ"
+
+msgid "Delete Professor"
+msgstr "حذف أستاذ"
+
+msgid "Are you sure you want to delete this professor?"
+msgstr "هل أنت متأكد من حذف هذا الأستاذ؟"
+
+# Courses
+msgid "Course List"
+msgstr "قائمة المواد الدراسية"
+
+msgid "Add Course"
+msgstr "إضافة مادة دراسية"
+
+msgid "Course"
+msgstr "المادة الدراسية"
+
+msgid "Course ID"
+msgstr "معرف المادة"
+
+msgid "Course Name"
+msgstr "اسم المادة"
+
+msgid "Course:"
+msgstr "المادة الدراسية:"
+
+msgid "Select Course"
+msgstr "اختر مادة دراسية"
+
+msgid "No courses found."
+msgstr "لم يتم العثور على مواد دراسية."
+
+msgid "Delete Course"
+msgstr "حذف مادة دراسية"
+
+msgid "Are you sure you want to delete this course?"
+msgstr "هل أنت متأكد من حذف هذه المادة الدراسية؟"
+
+# Participants
+msgid "Participant List"
+msgstr "قائمة المشاركين"
+
+msgid "Add Participant"
+msgstr "إضافة مشارك"
+
+msgid "Participant"
+msgstr "المشارك"
+
+msgid "Participant ID"
+msgstr "معرف المشارك"
+
+msgid "Participant:"
+msgstr "المشارك:"
+
+msgid "Select Participant"
+msgstr "اختر مشارك"
+
+msgid "No participants found."
+msgstr "لم يتم العثور على مشاركين."
+
+msgid "Delete Participant"
+msgstr "حذف مشارك"
+
+msgid "Are you sure you want to delete this participant?"
+msgstr "هل أنت متأكد من حذف هذا المشارك؟"
+
+# Locations
+msgid "Location List"
+msgstr "قائمة المواقع"
+
+msgid "Add Location"
+msgstr "إضافة موقع"
+
+msgid "Location"
+msgstr "الموقع"
+
+msgid "Location ID"
+msgstr "معرف الموقع"
+
+msgid "Location Name"
+msgstr "اسم الموقع"
+
+msgid "Location:"
+msgstr "الموقع:"
+
+msgid "Select Location"
+msgstr "اختر موقع"
+
+msgid "No locations found."
+msgstr "لم يتم العثور على مواقع."
+
+msgid "Delete Location"
+msgstr "حذف موقع"
+
+msgid "Are you sure you want to delete this location?"
+msgstr "هل أنت متأكد من حذف هذا الموقع؟"
+
+# Evaluations
+msgid "Evaluation List"
+msgstr "قائمة التقييمات"
+
+msgid "Add Evaluation"
+msgstr "إضافة تقييم"
+
+msgid "No evaluations found."
+msgstr "لم يتم العثور على تقييمات."
+
+msgid "Average Q1-15"
+msgstr "متوسط السؤال 1-15"
+
+msgid "No notes"
+msgstr "لا توجد ملاحظات"
+
+msgid "Questions (Rating 1-5)"
+msgstr "الأسئلة (التقييم من 1-5)"
+
+msgid "Notes"
+msgstr "الملاحظات"
+
+msgid "Delete Evaluation"
+msgstr "حذف تقييم"
+
+msgid "Are you sure you want to delete this evaluation?"
+msgstr "هل أنت متأكد من حذف هذا التقييم؟"
+
+# Training Sessions
+msgid "Training Sessions"
+msgstr "الدورات التدريبية"
+
+msgid "Manage and view all training sessions"
+msgstr "إدارة وعرض جميع الدورات التدريبية"
+
+msgid "Add Training Session"
+msgstr "إضافة دورة تدريبية"
+
+msgid "Search training sessions by ID, course, professor, or location..."
+msgstr "البحث عن الدورات التدريبية بالمعرف أو المادة أو الأستاذ أو الموقع..."
+
+msgid "All Training Sessions"
+msgstr "جميع الدورات التدريبية"
+
+msgid "Train ID"
+msgstr "معرف الدورة"
+
+msgid "Train Date"
+msgstr "تاريخ الدورة"
+
+msgid "Train ID:"
+msgstr "معرف الدورة:"
+
+msgid "Training Date"
+msgstr "تاريخ التدريب"
+
+msgid "No training sessions found matching your search."
+msgstr "لم يتم العثور على دورات تدريبية تطابق بحثك."
+
+msgid "No training sessions available. Click 'Add Training Session' to create one."
+msgstr "لا توجد دورات تدريبية متاحة. انقر على 'إضافة دورة تدريبية' لإنشاء واحدة."
+
+msgid "Edit Training Session"
+msgstr "تعديل دورة تدريبية"
+
+msgid "Delete Training Session"
+msgstr "حذف دورة تدريبية"
+
+msgid "Are you sure you want to delete this training session?"
+msgstr "هل أنت متأكد من حذف هذه الدورة التدريبية؟"
+
+msgid "This will also delete all related evaluations and training participants."
+msgstr "سيقوم هذا أيضاً بحذف جميع التقييمات والمشاركين المرتبطين بهذه الدورة."
+
+# Training Participants
+msgid "Training Participants"
+msgstr "المشاركون في التدريب"
+
+msgid "Manage participants enrolled in training sessions"
+msgstr "إدارة المشاركين المسجلين في الدورات التدريبية"
+
+msgid "Add Training Participant"
+msgstr "إضافة مشارك في التدريب"
+
+msgid "Search by participant name, training ID, or course..."
+msgstr "البحث بواسطة اسم المشارك أو معرف التدريب أو المادة..."
+
+msgid "All Training Participants"
+msgstr "جميع المشاركين في التدريب"
+
+msgid "Training Session"
+msgstr "الدورة التدريبية"
+
+msgid "Training Session:"
+msgstr "الدورة التدريبية:"
+
+msgid "Select Training Session"
+msgstr "اختر دورة تدريبية"
+
+msgid "Evaluation Date"
+msgstr "تاريخ التقييم"
+
+msgid "Evaluation Date:"
+msgstr "تاريخ التقييم:"
+
+msgid "No training participants found matching your search."
+msgstr "لم يتم العثور على مشاركين في التدريب يطابقون بحثك."
+
+msgid "No training participants available. Click 'Add Training Participant' to create one."
+msgstr "لا يوجد مشاركون في التدريب متاحون. انقر على 'إضافة مشارك في التدريب' لإنشاء واحد."
+
+msgid "Edit Training Participant"
+msgstr "تعديل مشارك في التدريب"
+
+msgid "Delete Training Participant"
+msgstr "حذف مشارك في التدريب"
+
+msgid "Are you sure you want to delete this training participant?"
+msgstr "هل أنت متأكد من حذف هذا المشارك في التدريب؟"
+
+msgid "ID:"
+msgstr "المعرف:"
+
+msgid "This action cannot be undone."
+msgstr "لا يمكن التراجع عن هذا الإجراء."
+
+# Trainers
+msgid "Trainer List"
+msgstr "قائمة المدربين"
+
+msgid "Manage and view all trainers"
+msgstr "إدارة وعرض جميع المدربين"
+
+msgid "Add Trainer"
+msgstr "إضافة مدرب"
+
+msgid "Search trainers by name, ID, phone, or email..."
+msgstr "البحث عن المدربين بالاسم أو المعرف أو الهاتف أو البريد الإلكتروني..."
+
+msgid "No Trainers Found"
+msgstr "لم يتم العثور على مدربين"
+
+msgid "No trainers have been added yet."
+msgstr "لم تتم إضافة أي مدربين بعد."
+
+msgid "Add Your First Trainer"
+msgstr "أضف مدربك الأول"
+
+# Authentication
+msgid "Create Account"
+msgstr "إنشاء حساب"
+
+msgid "Join us today! Fill in the details below"
+msgstr "انضم إلينا اليوم! املأ التفاصيل أدناه"
+
+msgid "Username"
+msgstr "اسم المستخدم"
+
+msgid "Choose a username"
+msgstr "اختر اسم مستخدم"
+
+msgid "Enter your email"
+msgstr "أدخل بريدك الإلكتروني"
+
+msgid "First Name"
+msgstr "الاسم الأول"
+
+msgid "Enter first name"
+msgstr "أدخل الاسم الأول"
+
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+msgid "Enter last name"
+msgstr "أدخل اسم العائلة"
+
+msgid "Enter phone number"
+msgstr "أدخل رقم الهاتف"
+
+msgid "Account Type"
+msgstr "نوع الحساب"
+
+msgid "Guest"
+msgstr "ضيف"
+
+msgid "View Only"
+msgstr "عرض فقط"
+
+msgid "User"
+msgstr "مستخدم"
+
+msgid "Can Create & Edit"
+msgstr "يمكنه الإنشاء والتعديل"
+
+msgid "Admin"
+msgstr "مدير"
+
+msgid "Full Access"
+msgstr "وصول كامل"
+
+msgid "Password"
+msgstr "كلمة المرور"
+
+msgid "Choose a password"
+msgstr "اختر كلمة مرور"
+
+msgid "At least 6 characters"
+msgstr "6 أحرف على الأقل"
+
+msgid "Confirm Password"
+msgstr "تأكيد كلمة المرور"
+
+msgid "Re-enter password"
+msgstr "أعد إدخال كلمة المرور"
+
+msgid "Already have an account?"
+msgstr "هل لديك حساب بالفعل؟"
+
+msgid "Login here"
+msgstr "تسجيل الدخول هنا"
+
+# System Settings
+msgid "System Settings"
+msgstr "إعدادات النظام"
+
+msgid "System Status"
+msgstr "حالة النظام"
+
+msgid "System is OPEN"
+msgstr "النظام مفتوح"
+
+msgid "System is CLOSED"
+msgstr "النظام مغلق"
+
+msgid "Keep System Open"
+msgstr "ابقِ النظام مفتوحاً"
+
+msgid "Closure Message"
+msgstr "رسالة الإغلاق"
+
+msgid "Message to display when system is closed"
+msgstr "الرسالة التي ستظهر عند إغلاق النظام"
+
+msgid "Enter maintenance message..."
+msgstr "أدخل رسالة الصيانة..."
+
+msgid "Expected Closure End"
+msgstr "الموعد المتوقع لإعادة الفتح"
+
+msgid "When do you expect the system to reopen?"
+msgstr "متى تتوقع إعادة فتح النظام؟"
+
+msgid "Admin Access"
+msgstr "الوصول للمدير"
+
+msgid "Allow admin users to access when system is closed"
+msgstr "السماح للمديرين بالوصول عند إغلاق النظام"
+
+msgid "Last updated"
+msgstr "آخر تحديث"
+
+msgid "by"
+msgstr "بواسطة"
+
+msgid "Save Settings"
+msgstr "حفظ الإعدادات"
+
+msgid "Back to Dashboard"
+msgstr "العودة إلى لوحة التحكم"
+
+# System Closed
+msgid "System Closed"
+msgstr "النظام مغلق"
+
+msgid "System Maintenance"
+msgstr "صيانة النظام"
+
+msgid "Expected to be back"
+msgstr "من المتوقع العودة"
+
+msgid "We apologize for any inconvenience. Our team is working to improve your experience."
+msgstr "نعتذر عن أي إزعاج. فريقنا يعمل على تحسين تجربتك."
+
+msgid "Need urgent assistance?"
+msgstr "هل تحتاج إلى مساعدة عاجلة؟"
+
+msgid "Contact"
+msgstr "اتصل"
+
+msgid "Admin Login"
+msgstr "تسجيل دخول المدير"
+
+# Warnings
+msgid "Yes, Delete"
+msgstr "نعم، حذف"
+
+msgid "Warning"
+msgstr "تحذير"
+
+msgid "Warning:"
+msgstr "تحذير:"
+
+msgid "This will also affect related courses and evaluations."
+msgstr "سيؤثر هذا أيضاً على المواد الدراسية والتقييمات المرتبطة."
+
+msgid "This will also affect related evaluations."
+msgstr "سيؤثر هذا أيضاً على التقييمات المرتبطة."
+
+# Dashboard
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Full Name:"
+msgstr "الاسم الكامل:"
+
+msgid "Member Since:"
+msgstr "عضو منذ:"
+
+msgid "Your Permissions"
+msgstr "صلاحياتك"
+
+msgid "Create Records"
+msgstr "إنشاء السجلات"
+
+msgid "Edit Records"
+msgstr "تعديل السجلات"
+
+msgid "Delete Records"
+msgstr "حذف السجلات"
+
+msgid "View Contact Messages"
+msgstr "عرض رسائل الاتصال"
+
+msgid "Admin Panel Access"
+msgstr "الوصول إلى لوحة الإدارة"
+
+msgid "Full System Access"
+msgstr "الوصول الكامل للنظام"
+
+msgid "You have Guest access. Contact an administrator to upgrade your account for more permissions."
+msgstr "لديك وصول كضيف. اتصل بمدير لترقية حسابك للحصول على المزيد من الصلاحيات."
+
+msgid "System Statistics"
+msgstr "إحصائيات النظام"
+
+msgid "Total Users"
+msgstr "إجمالي المستخدمين"
+
+msgid "Total Evaluations"
+msgstr "إجمالي التقييمات"
+
+msgid "Unread Messages"
+msgstr "الرسائل غير المقروءة"
+
+msgid "Your Role"
+msgstr "دورك"
+
+msgid "System Control Panel"
+msgstr "لوحة التحكم بالنظام"
+
+msgid "Current System Status"
+msgstr "حالة النظام الحالية"
+
+msgid "SYSTEM OPEN"
+msgstr "النظام مفتوح"
+
+msgid "Closed since"
+msgstr "مغلق منذ"
+
+msgid "Close System"
+msgstr "إغلاق النظام"
+
+msgid "Open System"
+msgstr "فتح النظام"
+
+msgid "Current Closure Message"
+msgstr "رسالة الإغلاق الحالية"
+
+msgid "Quick Actions"
+msgstr "الإجراءات السريعة"
+
+msgid "Create Evaluation"
+msgstr "إنشاء تقييم"
+
+msgid "View Messages"
+msgstr "عرض الرسائل"
+
+msgid "Are you sure you want to CLOSE the system? Users will not be able to access the system."
+msgstr "هل أنت متأكد من أنك تريد إغلاق النظام؟ لن يتمكن المستخدمون من الوصول إلى النظام."
+
+msgid "Are you sure you want to OPEN the system? Users will be able to access the system again."
+msgstr "هل أنت متأكد من أنك تريد فتح النظام؟ سيتمكن المستخدمون من الوصول إلى النظام مرة أخرى."
+
+# Contact Messages
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+msgid "We'd love to hear from you. Get in touch with us!"
+msgstr "نود أن نسمع منك. تواصل معنا!"
+
+msgid "Send us a Message"
+msgstr "أرسل لنا رسالة"
+
+msgid "Your Name"
+msgstr "اسمك"
+
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+msgid "Phone Number"
+msgstr "رقم الهاتف"
+
+msgid "Subject"
+msgstr "الموضوع"
+
+msgid "Select a subject"
+msgstr "اختر موضوعاً"
+
+msgid "General Inquiry"
+msgstr "استفسار عام"
+
+msgid "Technical Support"
+msgstr "الدعم الفني"
+
+msgid "Feedback"
+msgstr "ملاحظات"
+
+msgid "Bug Report"
+msgstr "بلاغ عن خلل"
+
+msgid "Feature Request"
+msgstr "طلب ميزة"
+
+msgid "Message"
+msgstr "الرسالة"
+
+msgid "Send Message"
+msgstr "إرسال رسالة"
+
+msgid "Contact Information"
+msgstr "معلومات الاتصال"
+
+msgid "Address"
+msgstr "العنوان"
+
+msgid "123 Education Street"
+msgstr "شارع التعليم 123"
+
+msgid "City, Country 12345"
+msgstr "المدينة، البلد 12345"
+
+msgid "Working Hours"
+msgstr "ساعات العمل"
+
+msgid "Monday - Friday"
+msgstr "الإثنين - الجمعة"
+
+msgid "Saturday"
+msgstr "السبت"
+
+msgid "Follow Us"
+msgstr "تابعنا"
+
+msgid "Frequently Asked Questions"
+msgstr "الأسئلة المتكررة"
+
+msgid "How do I create an evaluation?"
+msgstr "كيف أقوم بإنشاء تقييم؟"
+
+msgid "Navigate to the Evaluations page and click on 'New Evaluation' button. Fill in the required information and submit."
+msgstr "انتقل إلى صفحة التقييمات وانقر على زر 'تقييم جديد'. قم بتعبئة المعلومات المطلوبة وأرسل."
+
+msgid "Can I export evaluation data?"
+msgstr "هل يمكنني تصدير بيانات التقييم؟"
+
+msgid "Yes, you can export evaluation data in various formats from the evaluations list page."
+msgstr "نعم، يمكنك تصدير بيانات التقييم بصيغ مختلفة من صفحة قائمة التقييمات."
+
+msgid "How do I change the language?"
+msgstr "كيف أغير اللغة؟"
+
+msgid "Click on the language selector in the top right corner and choose your preferred language."
+msgstr "انقر على محدد اللغة في الزاوية العلوية اليمنى واختر لغتك المفضلة."
+
+msgid "Is my data secure?"
+msgstr "هل بياناتي آمنة؟"
+
+msgid "Yes, we use industry-standard security practices to protect your data."
+msgstr "نعم، نستخدم ممارسات أمنية قياسية في الصناعة لحماية بياناتك."
+
+msgid "Contact Messages"
+msgstr "رسائل الاتصال"
+
+msgid "Contact Message"
+msgstr "رسالة اتصال"
+
+msgid "Manage and view all contact messages"
+msgstr "إدارة وعرض جميع رسائل الاتصال"
+
+msgid "Contact Form"
+msgstr "نموذج الاتصال"
+
+msgid "Search by name, email, subject, or message..."
+msgstr "البحث بالاسم أو البريد الإلكتروني أو الموضوع أو الرسالة..."
+
+msgid "Read"
+msgstr "مقروءة"
+
+msgid "Unread"
+msgstr "غير مقروءة"
+
+msgid "No Contact Messages Found"
+msgstr "لم يتم العثور على رسائل اتصال"
+
+msgid "No contact messages have been received yet."
+msgstr "لم يتم استلام رسائل اتصال بعد."
+
+msgid "Try searching by name, email, or subject"
+msgstr "جرب البحث بالاسم أو البريد الإلكتروني أو الموضوع"
+
+msgid "Go to Contact Form"
+msgstr "الذهاب إلى نموذج الاتصال"
+
+msgid "Edit Contact Message"
+msgstr "تعديل رسالة الاتصال"
+
+msgid "Mark as Read"
+msgstr "وضع علامة كمقروءة"
+
+msgid "Received Date"
+msgstr "تاريخ الاستلام"
+
+msgid "Save Changes"
+msgstr "حفظ التغييرات"
+
+msgid "Delete Contact Message"
+msgstr "حذف رسالة الاتصال"
+
+msgid "Are you sure you want to delete this contact message?"
+msgstr "هل أنت متأكد من أنك تريد حذف رسالة الاتصال هذه؟"
+
+msgid "From:"
+msgstr "من:"
+
+msgid "Date:"
+msgstr "التاريخ:"

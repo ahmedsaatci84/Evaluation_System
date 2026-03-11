@@ -1,0 +1,201 @@
+{% extends "evaluation_app/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Contact Us" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'evaluation_app/css/contact.css' %}">
+
+<div class="contact-container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1>{% trans "Contact Messages" %}</h1>
+           <a href="{% url 'contact_list' %}" class="btn btn-primary">
+             <i class="fas fa-envelope"></i> {% trans "Contact Message" %}
+           </a>
+        </div>
+    <!-- Hero Section -->
+    <div class="contact-hero">
+        <div class="hero-content">
+            <h1>
+                <i class="fas fa-envelope"></i>
+                {% trans "Contact Us" %}
+            </h1>
+            <p class="hero-subtitle">{% trans "We'd love to hear from you. Get in touch with us!" %}</p>
+        </div>
+    </div>
+
+    <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+            <div class="form-header">
+                <i class="fas fa-paper-plane"></i>
+                <h2>{% trans "Send us a Message" %}</h2>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        <i class="fas fa-check-circle"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" class="contact-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">
+                        <i class="fas fa-user"></i>
+                        {% trans "Your Name" %}
+                    </label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i>
+                        {% trans "Email Address" %}
+                    </label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        <i class="fas fa-phone"></i>
+                        {% trans "Phone Number" %}
+                    </label>
+                    <input type="tel" id="phone" name="phone" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">
+                        <i class="fas fa-tag"></i>
+                        {% trans "Subject" %}
+                    </label>
+                    <select id="subject" name="subject" class="form-control" required>
+                        <option value="">{% trans "Select a subject" %}</option>
+                        <option value="general">{% trans "General Inquiry" %}</option>
+                        <option value="support">{% trans "Technical Support" %}</option>
+                        <option value="feedback">{% trans "Feedback" %}</option>
+                        <option value="bug">{% trans "Bug Report" %}</option>
+                        <option value="feature">{% trans "Feature Request" %}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">
+                        <i class="fas fa-comment-dots"></i>
+                        {% trans "Message" %}
+                    </label>
+                    <textarea id="message" name="message" class="form-control" rows="6" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    {% trans "Send Message" %}
+                </button>
+            </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info-section">
+            <div class="info-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>{% trans "Contact Information" %}</h2>
+            </div>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>{% trans "Address" %}</h3>
+                        <p>{% trans "123 Education Street" %}<br>{% trans "City, Country 12345" %}</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>{% trans "Phone" %}</h3>
+                        <p>+123 456 7890<br>+123 456 7891</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>{% trans "Email" %}</h3>
+                        <p>info@evaluationsystem.com<br>support@evaluationsystem.com</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>{% trans "Working Hours" %}</h3>
+                        <p>{% trans "Sunday - Thursday" %}: 7:00 AM - 2:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media -->
+            <div class="social-section">
+                <h3>{% trans "Follow Us" %}</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link facebook" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link twitter" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link linkedin" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-link instagram" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link github" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="section-header">
+            <i class="fas fa-question-circle"></i>
+            <h2>{% trans "Frequently Asked Questions" %}</h2>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4><i class="fas fa-chevron-right"></i> {% trans "How do I create an evaluation?" %}</h4>
+                <p>{% trans "Navigate to the Evaluations page and click on 'New Evaluation' button. Fill in the required information and submit." %}</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-chevron-right"></i> {% trans "Can I export evaluation data?" %}</h4>
+                <p>{% trans "Yes, you can export evaluation data in various formats from the evaluations list page." %}</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-chevron-right"></i> {% trans "How do I change the language?" %}</h4>
+                <p>{% trans "Click on the language selector in the top right corner and choose your preferred language." %}</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-chevron-right"></i> {% trans "Is my data secure?" %}</h4>
+                <p>{% trans "Yes, we use industry-standard security practices to protect your data." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

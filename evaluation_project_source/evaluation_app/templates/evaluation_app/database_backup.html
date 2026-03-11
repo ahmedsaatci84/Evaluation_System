@@ -1,0 +1,339 @@
+{% extends "evaluation_app/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'evaluation_app/css/database_backup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-12">
+    <!-- Header -->
+    <div class="backup-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="mb-2"><i class="fas fa-database"></i> {% trans "Database Backup Management" %}</h1>
+                <p class="mb-0 opacity-75">{% trans "Create, manage, and download database backups" %}</p>
+            </div>
+            <div>
+                <a href="{% url 'dashboard' %}" class="btn btn-light">
+                    <i class="fas fa-arrow-left"></i> {% trans "Back to Dashboard" %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' %}exclamation-circle{% else %}info-circle{% endif %}"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+        <div class="stat-box">
+            <i class="fas fa-hdd"></i>
+            <h3>{{ total_backups }}</h3>
+            <p>{% trans "Total Backups" %}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-weight"></i>
+            <h3>{{ total_size }}</h3>
+            <p>{% trans "Total Size" %}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-server"></i>
+            <h3>{{ db_info.engine }}</h3>
+            <p>{% trans "Database Engine" %}</p>
+        </div>
+        <div class="stat-box">
+            <i class="fas fa-database"></i>
+            <h3>{{ db_info.name }}</h3>
+            <p>{% trans "Database Name" %}</p>
+        </div>
+    </div>
+
+    <!-- Database Info -->
+    <div class="db-info-card">
+        <h5 class="mb-3"><i class="fas fa-info-circle"></i> {% trans "Database Information" %}</h5>
+        <div class="db-info-item">
+            <strong>{% trans "Database:" %}</strong> {{ db_info.name }}
+        </div>
+        <div class="db-info-item">
+            <strong>{% trans "Host:" %}</strong> {{ db_info.host }}
+        </div>
+        <div class="db-info-item">
+            <strong>{% trans "Backup Path:" %}</strong> {{ backup_dir }}
+        </div>
+    </div>
+
+   
+
+    <!-- Create Backup Section -->
+    <div class="backup-card">
+        <div class="backup-card-header">
+            <i class="fas fa-plus-circle"></i> {% trans "Create New Backup" %}
+        </div>
+        <div class="card-body text-center p-4">
+           
+            <p class="text-muted mb-4">
+                {% trans "Click the button below to create a new backup of the database. This process may take a few moments." %}
+            </p>
+            <button onclick="createBackup()" class="create-backup-btn" id="createBackupBtn">
+                <i class="fas fa-save"></i> {% trans "Create Backup Now" %}
+                <span class="spinner-border spinner-border-custom" role="status"></span>
+            </button>
+            
+            <div class="progress-container" id="progressContainer">
+                <div class="progress" style="height: 30px; border-radius: 15px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" 
+                         style="width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <strong>{% trans "Creating backup..." %}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Existing Backups List -->
+    <div class="backup-card">
+        <div class="backup-card-header">
+            <i class="fas fa-history"></i> {% trans "Recent Backups" %}
+        </div>
+        <div class="card-body">
+            {% if backups %}
+                <div class="backup-list">
+                    {% for backup in backups %}
+                    <div class="backup-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="backup-filename">
+                                    <i class="fas fa-file-archive text-primary"></i> {{ backup.name }}
+                                    <span class="badge bg-info ms-2">{{ backup.type }}</span>
+                                </div>
+                                <div class="backup-meta">
+                                    <span><i class="far fa-clock"></i> {{ backup.created|date:"M d, Y - H:i:s" }}</span>
+                                    <span class="ms-3"><i class="fas fa-weight"></i> {{ backup.size_formatted }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <div class="backup-actions justify-content-end">
+                                    <a href="{% url 'database_backup_download' backup.name %}" 
+                                       class="btn btn-download">
+                                        <i class="fas fa-download"></i> {% trans "Download" %}
+                                    </a>
+                                    <button onclick="confirmRestore('{{ backup.name }}')" 
+                                            class="btn btn-restore">
+                                        <i class="fas fa-redo"></i> {% trans "Restore" %}
+                                    </button>
+                                    <button onclick="confirmDelete('{{ backup.name }}')" 
+                                            class="btn btn-delete-backup">
+                                        <i class="fas fa-trash"></i> {% trans "Delete" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                {% if total_backups > 10 %}
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-info-circle"></i>
+                    {% trans "Showing 20 most recent backups." %} {% trans "Total backups:" %} {{ total_backups }}
+                </div>
+                {% endif %}
+            {% else %}
+                <div class="backup-empty">
+                    <i class="fas fa-inbox"></i>
+                    <h5>{% trans "No backups found" %}</h5>
+                    <p>{% trans "Create your first backup to get started!" %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Delete Form (Hidden) -->
+<form id="deleteBackupForm" method="post" style="display: none;">
+    {% csrf_token %}
+</form>
+
+<!-- Restore Form (Hidden) -->
+<form id="restoreBackupForm" method="post" style="display: none;">
+    {% csrf_token %}
+</form>
+
+<script>
+// Get CSRF token from DOM
+function getCSRFToken() {
+    // Try to get from meta tag (most reliable)
+    const metaTag = document.querySelector('meta[name="csrf-token"]');
+    if (metaTag) {
+        return metaTag.getAttribute('content');
+    }
+    
+    // Try to get from form input
+    const tokenInput = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (tokenInput) {
+        return tokenInput.value;
+    }
+    
+    // Fallback to cookie method
+    return getCookie('csrftoken');
+}
+
+// Get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function createBackup() {
+    const btn = document.getElementById('createBackupBtn');
+    const progressContainer = document.getElementById('progressContainer');
+    
+    // Disable button and show loading
+    btn.disabled = true;
+    btn.classList.add('creating');
+    progressContainer.classList.add('active');
+    
+    // Make AJAX request (CSRF exempt for admin-only endpoint)
+    fetch("{% url 'database_backup_create' %}", {
+        method: 'POST',
+        credentials: 'same-origin',
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        
+        // Read response as text first to avoid "body stream already read" error
+        return response.text().then(text => {
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                // Not valid JSON, use raw text
+                data = { error: text || 'Unknown error occurred' };
+            }
+            
+            if (!response.ok) {
+                let errorMsg = data.error || 'Unknown error occurred';
+                
+                // Handle permission errors with helpful instructions
+                if (response.status === 403 && errorMsg.includes('BACKUP DATABASE permission')) {
+                    errorMsg = '{% trans "Permission Error:" %}\n\n' + 
+                               '{% trans "The database user does not have permission to create backups." %}\n\n' +
+                               '{% trans "To fix this, run the following SQL command as a database administrator:" %}\n\n' +
+                               'GRANT BACKUP DATABASE TO [your_username];\n' +
+                               'GRANT BACKUP LOG TO [your_username];\n\n' +
+                               '{% trans "Replace [your_username] with your actual SQL Server username." %}';
+                }
+                
+                throw new Error(errorMsg);
+            }
+            
+            return data;
+        });
+    })
+    .then(data => {
+        if (data.success) {
+            // Show success message and reload
+            alert('{% trans "Backup created successfully!" %}\n' + data.message + '\n{% trans "Size:" %} ' + data.size_formatted);
+            window.location.reload();
+        } else {
+            alert('{% trans "Backup failed:" %} ' + data.error);
+            btn.disabled = false;
+            btn.classList.remove('creating');
+            progressContainer.classList.remove('active');
+        }
+    })
+    .catch(error => {
+        console.error('Backup error:', error);
+        alert(error.message);
+        btn.disabled = false;
+        btn.classList.remove('creating');
+        progressContainer.classList.remove('active');
+    });
+}
+
+function confirmRestore(filename) {
+    if (confirm('{% trans "WARNING: This will restore the database from the selected backup!" %}\n\n' + 
+                '{% trans "Filename:" %} ' + filename + '\n\n' + 
+                '{% trans "All current data will be replaced with data from this backup!" %}\n\n' + 
+                '{% trans "This action cannot be undone! Are you sure you want to continue?" %}')) {
+        
+        // Show loading message
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'alert alert-warning position-fixed top-50 start-50 translate-middle';
+        loadingMsg.style.zIndex = '9999';
+        loadingMsg.innerHTML = '<i class="fas fa-spinner fa-spin"></i> {% trans "Restoring database... Please wait..." %}';
+        document.body.appendChild(loadingMsg);
+        
+        // Make AJAX request (CSRF exempt for admin-only endpoint)
+        fetch(`/database-backup/restore/${filename}/`, {
+            method: 'POST',
+            credentials: 'same-origin',
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${text}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (document.body.contains(loadingMsg)) {
+                document.body.removeChild(loadingMsg);
+            }
+            
+            if (data.success) {
+                alert('{% trans "Database restored successfully!" %}\n' + data.message + '\n\n{% trans "Please refresh the page." %}');
+                window.location.reload();
+            } else {
+                alert('{% trans "Restore failed:" %} ' + data.error);
+            }
+        })
+        .catch(error => {
+            if (document.body.contains(loadingMsg)) {
+                document.body.removeChild(loadingMsg);
+            }
+            console.error('Restore error:', error);
+            alert('{% trans "An error occurred:" %} ' + error.message);
+        });
+    }
+}
+
+function confirmDelete(filename) {
+    if (confirm('{% trans "Are you sure you want to delete this backup?" %}\n\n' + filename + '\n\n{% trans "This action cannot be undone!" %}')) {
+        const form = document.getElementById('deleteBackupForm');
+        form.action = `/database-backup/delete/${filename}/`;
+        form.submit();
+    }
+}
+
+// Auto-hide alerts after 5 seconds
+setTimeout(function() {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+        const bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    });
+}, 5000);
+</script>
+{% endblock %}

@@ -1,0 +1,234 @@
+{% extends "evaluation_app/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "About Us" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'evaluation_app/css/about.css' %}">
+
+<div class="about-container">
+    <!-- Hero Section -->
+    <div class="about-hero">
+        <div class="hero-content">
+            <h1>
+                <i class="fas fa-info-circle"></i>
+                {% trans "About Our System" %}
+            </h1>
+            <p class="hero-subtitle">{% trans "Empowering education through comprehensive evaluation solutions" %}</p>
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="about-section">
+        <div class="section-header">
+            <i class="fas fa-bullseye"></i>
+            <h2>{% trans "Our Mission" %}</h2>
+        </div>
+        <p class="section-text">
+            {% trans "We are dedicated to providing a comprehensive and user-friendly evaluation system that helps educational institutions track and improve the quality of their courses, professors, and overall educational experience. Our mission is to facilitate continuous improvement through data-driven insights and transparent feedback mechanisms." %}
+        </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="about-section">
+        <div class="section-header">
+            <i class="fas fa-star"></i>
+            <h2>{% trans "Key Features" %}</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon blue">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>{% trans "Comprehensive Analytics" %}</h3>
+                <p>{% trans "Track evaluations with detailed statistics and visual dashboards" %}</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon green">
+                    <i class="fas fa-users-cog"></i>
+                </div>
+                <h3>{% trans "Multi-Entity Management" %}</h3>
+                <p>{% trans "Manage professors, courses, participants, and locations efficiently" %}</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon orange">
+                    <i class="fas fa-language"></i>
+                </div>
+                <h3>{% trans "Multilingual Support" %}</h3>
+                <p>{% trans "Available in English, Arabic, Turkish, and Kurdish languages" %}</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon purple">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>{% trans "Responsive Design" %}</h3>
+                <p>{% trans "Access the system seamlessly from any device" %}</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon red">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>{% trans "Secure & Reliable" %}</h3>
+                <p>{% trans "Built with security best practices and data integrity" %}</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon teal">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3>{% trans "Real-time Updates" %}</h3>
+                <p>{% trans "Get instant access to the latest evaluation data" %}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="about-section">
+        <div class="section-header">
+            <i class="fas fa-code"></i>
+            <h2>{% trans "Technology Stack" %}</h2>
+        </div>
+        <div class="tech-stack">
+            <div class="tech-item">
+                <i class="fab fa-python"></i>
+                <span>Django</span>
+            </div>
+            <div class="tech-item">
+                <i class="fab fa-html5"></i>
+                <span>HTML5</span>
+            </div>
+            <div class="tech-item">
+                <i class="fab fa-css3-alt"></i>
+                <span>CSS3</span>
+            </div>
+            <div class="tech-item">
+                <i class="fab fa-js"></i>
+                <span>JavaScript</span>
+            </div>
+            <div class="tech-item">
+                <i class="fab fa-bootstrap"></i>
+                <span>Bootstrap</span>
+            </div>
+            <div class="tech-item">
+                <i class="fas fa-database"></i>
+                <span>MSSQL</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="about-section">
+        <div class="section-header">
+            <i class="fas fa-user-friends"></i>
+            <h2>{% trans "Our Values" %}</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h4>{% trans "Education First" %}</h4>
+                <p>{% trans "We prioritize the needs of educational institutions and learners" %}</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h4>{% trans "Innovation" %}</h4>
+                <p>{% trans "Continuously improving and adapting to modern educational needs" %}</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h4>{% trans "Collaboration" %}</h4>
+                <p>{% trans "Working together to achieve educational excellence" %}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Developer Information Section -->
+    <div class="about-section developer-section">
+        <div class="section-header">
+            <i class="fas fa-laptop-code"></i>
+            <h2>{% trans "Developer Information" %}</h2>
+        </div>
+        <div class="developer-info">
+            <div class="developer-card">
+                <div class="developer-avatar">
+                    <div class="avatar-circle">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="developer-badge">
+                        <i class="fas fa-code"></i>
+                        <span>Full Stack Developer</span>
+                    </div>
+                </div>
+                <div class="developer-details">
+                    <h3 class="developer-name">Ahmed Abdulameer Ahmed</h3>
+                    <div class="developer-info-grid">
+                        <div class="info-card">
+                            <div class="info-icon department">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">{% trans "Department" %}</span>
+                                <span class="info-value">IT</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon role">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">{% trans "Role" %}</span>
+                                <span class="info-value">{% trans "Lead Developer" %}</span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon phone">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">{% trans "Contact Number" %}</span>
+                                <span class="info-value"><a href="tel:07730100968">07730100968</a></span>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon email">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <span class="info-label">{% trans "Email" %}</span>
+                                <span class="info-value"><a href="mailto:ahmedsaatci@gmail.com">ahmedsaatci@gmail.com</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>{% trans "Ready to Get Started?" %}</h2>
+        <p>{% trans "Contact us to learn more about how our system can benefit your institution" %}</p>
+        <div class="cta-buttons">
+            <a href="{% url 'contact' %}" class="cta-btn primary">
+                <i class="fas fa-envelope"></i>
+                {% trans "Contact Us" %}
+            </a>
+            <a href="{% url 'home' %}" class="cta-btn secondary">
+                <i class="fas fa-chart-line"></i>
+                {% trans "View Dashboard" %}
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

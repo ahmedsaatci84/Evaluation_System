@@ -1,0 +1,328 @@
+{% extends "evaluation_app/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="evaluation-container">
+    <div class="page-header">
+        <h1>{% if evaluation %}{% trans "Edit Evaluation" %}{% else %}{% trans "Add Evaluation" %}{% endif %}</h1>
+        <p class="subtitle">{% trans "Please fill out all required fields to submit your evaluation" %}</p>
+    </div>
+    
+    <div class="progress-indicator">
+        <div class="progress-bar-custom">
+            <div class="progress-bar-fill" id="formProgress" style="width: 0%"></div>
+        </div>
+        <div class="progress-text">
+            <span id="progressText">0% {% trans "Complete" %}</span>
+        </div>
+    </div>
+    
+    <form method="post" class="needs-validation" novalidate id="evaluationForm">
+        {% csrf_token %}
+        
+        <!-- Basic Information Section -->
+        <div class="form-card">
+            <div class="section-header">
+                <div class="icon">📋</div>
+                <h2>{% trans "Basic Information" %}</h2>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="ev_date" class="form-label">{% trans "Date" %} *</label>
+                    <input type="date" class="form-control" id="ev_date" name="ev_date" 
+                           value="{{ evaluation.ev_date|date:'Y-m-d' }}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Please select a date" %}
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="participant" class="form-label">{% trans "Participant" %} *</label>
+                    <select class="form-select" id="participant" name="participant" required>
+                        <option value="">{% trans "Select Participant" %}</option>
+                        {% for participant in participants %}
+                        <option value="{{ participant.participant_id }}" 
+                                {% if evaluation and evaluation.participant_id == participant.participant_id %}selected{% endif %}>
+                            {{ participant.participant_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% trans "Please select a participant" %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="prof" class="form-label">{% trans "Professor" %} *</label>
+                    <select class="form-select" id="prof" name="prof" required>
+                        <option value="">{% trans "Select Professor" %}</option>
+                        {% for professor in professors %}
+                        <option value="{{ professor.profid }}" 
+                                {% if evaluation and evaluation.prof_id == professor.profid %}selected{% endif %}>
+                            {{ professor.profname }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% trans "Please select a professor" %}
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="course" class="form-label">{% trans "Course" %} *</label>
+                    <select class="form-select" id="course" name="course" required>
+                        <option value="">{% trans "Select Course" %}</option>
+                        {% for course in courses %}
+                        <option value="{{ course.cid }}" 
+                                {% if evaluation and evaluation.course_id == course.cid %}selected{% endif %}>
+                            {{ course.coursename }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% trans "Please select a course" %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="location" class="form-label">{% trans "Location" %} *</label>
+                    <select class="form-select" id="location" name="location" required>
+                        <option value="">{% trans "Select Location" %}</option>
+                        {% for location in locations %}
+                        <option value="{{ location.id }}" 
+                                {% if evaluation and evaluation.location_id == location.id %}selected{% endif %}>
+                            {{ location.locationname }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% trans "Please select a location" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Evaluation Questions Section -->
+        <div class="form-card">
+            <div class="section-header">
+                <div class="icon">⭐</div>
+                <h2>{% trans "Evaluation Questions" %}</h2>
+            </div>
+            <p class="text-muted mb-4">{% trans "Rate each aspect from 1 (lowest) to 10 (highest)" %}</p>
+            
+            {% for i in "123456789012345"|make_list %}
+                <div class="rating-group">
+                    <div class="rating-label">{{ forloop.counter }}. 
+                        {% if forloop.counter == 1 %}{% trans "كان المدرب على دراية ومعرفة والمام كافي بمواضيع البرنامج" %}
+                        {% elif forloop.counter == 2 %}{% trans "نجح المدرب في ايصال المعلومة الى المتدربين بسهولة " %}
+                        {% elif forloop.counter == 3 %}{% trans "كان المدرب ذو مقدرة على احداث التفاعل والمشاركة البناءة وادارة النقاشات كما كان متمكنا في ادارة المدخلات والاستفسارات" %}
+                        {% elif forloop.counter == 4 %}{% trans "استطاع المدرب ربط المادة التدريبية بالواقع العملي للمتدربين " %}
+                  
+                        {% elif forloop.counter == 5 %}{% trans "استخدام المدرب وسائل وانشطة تدريبية مختلفة في تزويد المشاركين بالمهارات " %}
+                        {% elif forloop.counter == 6 %}{% trans "كانت المادة التدريبيةالمستخدمة ملائمة ومنسجمة مع اهداف البرنامج" %}
+                        {% elif forloop.counter == 7 %}{% trans "كانت المواضيع العلمية للبرنامج منظمة ومرتبطة بشكل منطقي مما سهل عملية التعلم المطلوبة " %}
+                        {% elif forloop.counter == 8 %}{% trans "سلامة وسلاسةاللغة التي كتبت بها المادة التدريبية " %}
+                        {% elif forloop.counter == 9 %}{% trans "المادة التي تم طرحها وتناولها غطت مفردات البرنامج " %}
+                        {% elif forloop.counter == 10 %}{% trans "التكنولوجيا الحديثة التي تم طرحها في البرنامج  " %}
+                        {% elif forloop.counter == 11 %}{% trans "الاشعار بوقت تنفيذ البرنامج التدريبي ومكان انعقاد كان مناسب " %}
+                        {% elif forloop.counter == 12 %}{% trans "القاعات التدريبية وفرت بيئة تعليمية مريحة " %}
+                        {% elif forloop.counter == 13 %}{% trans "مكان ووقت وانعقاد البرنامج ساهم في زيادة فاعلية البرنامج " %}
+                        {% elif forloop.counter == 14 %}{% trans "تنظيم برنامج كان مناسبا من حيث (فترات الاستراحة ,مستلزمات التدريب ,الخ)" %}
+                        {% elif forloop.counter == 15 %}{% trans "مدة البرنامج كانت كافية لتغطية كافة اهداف الدورة التدريبية" %}
+                        {% endif %}
+                    </div>
+                    <div class="rating-input-container">
+                        <div class="rating-buttons" data-input="ev_q_{{ forloop.counter }}">
+                            <button type="button" class="rating-btn" data-value="1">1</button>
+                            <button type="button" class="rating-btn" data-value="2">2</button>
+                            <button type="button" class="rating-btn" data-value="3">3</button>
+                            <button type="button" class="rating-btn" data-value="4">4</button>
+                            <button type="button" class="rating-btn" data-value="5">5</button>
+                            <button type="button" class="rating-btn" data-value="6">6</button>
+                            <button type="button" class="rating-btn" data-value="7">7</button>
+                            <button type="button" class="rating-btn" data-value="8">8</button>
+                            <button type="button" class="rating-btn" data-value="9">9</button>
+                            <button type="button" class="rating-btn" data-value="10">10</button>
+                        </div>
+                        <input type="number" class="rating-input" id="ev_q_{{ forloop.counter }}" name="ev_q_{{ forloop.counter }}" min="1" max="10" 
+                               value="{% if evaluation %}{{ evaluation|attr:'ev_q_'|add:forloop.counter }}{% endif %}" required>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Additional Notes Section -->
+        <div class="form-card">
+            <div class="section-header">
+                <div class="icon">📝</div>
+                <h2>{% trans "Additional Comments" %}</h2>
+            </div>
+            
+            <div class="mb-3">
+                <label for="ev_q_notes" class="form-label">{% trans "Notes" %}</label>
+                <textarea class="form-control notes-area" id="ev_q_notes" name="ev_q_notes" rows="4" maxlength="500" 
+                          placeholder="{% trans 'Share any additional thoughts or suggestions...' %}">{% if evaluation %}{{ evaluation.ev_q_notes }}{% endif %}</textarea>
+                <div class="form-text">
+                    <span id="charCount">0</span> / 500 {% trans "characters" %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="form-card">
+            <div class="d-flex gap-3 justify-content-end">
+                <a href="{% url 'evaluation_list' %}" class="btn btn-secondary">
+                    ← {% trans "Cancel" %}
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    ✓ {% trans "Save Evaluation" %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+(function() {
+    'use strict';
+    
+    const form = document.getElementById('evaluationForm');
+    const progressBar = document.getElementById('formProgress');
+    const progressText = document.getElementById('progressText');
+    
+    // Rating buttons functionality
+    const ratingButtons = document.querySelectorAll('.rating-buttons');
+    ratingButtons.forEach(container => {
+        const inputId = container.getAttribute('data-input');
+        const input = document.getElementById(inputId);
+        const buttons = container.querySelectorAll('.rating-btn');
+        
+        // Set initial state
+        if (input.value) {
+            updateButtonState(buttons, input.value);
+        }
+        
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const value = this.getAttribute('data-value');
+                input.value = value;
+                updateButtonState(buttons, value);
+                updateProgress();
+            });
+        });
+        
+        // Also allow direct input
+        input.addEventListener('input', function() {
+            updateButtonState(buttons, this.value);
+            updateProgress();
+        });
+    });
+    
+    function updateButtonState(buttons, value) {
+        buttons.forEach(btn => {
+            const btnValue = parseInt(btn.getAttribute('data-value'));
+            const selectedValue = parseInt(value);
+            
+            if (btnValue <= selectedValue) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+    
+    // Update progress indicator
+    function updateProgress() {
+        const requiredFields = form.querySelectorAll('[required]');
+        let filledFields = 0;
+        
+        requiredFields.forEach(field => {
+            if (field.value && field.value.trim() !== '') {
+                filledFields++;
+            }
+        });
+        
+        const percentage = Math.round((filledFields / requiredFields.length) * 100);
+        progressBar.style.width = percentage + '%';
+        progressText.textContent = percentage + '% {% trans "Complete" %}';
+    }
+    
+    // Character counter for notes
+    const notesTextarea = document.getElementById('ev_q_notes');
+    const charCount = document.getElementById('charCount');
+    
+    function updateCharCount() {
+        const count = notesTextarea.value.length;
+        charCount.textContent = count;
+        
+        if (count > 450) {
+            charCount.style.color = '#ef4444';
+        } else if (count > 400) {
+            charCount.style.color = '#f59e0b';
+        } else {
+            charCount.style.color = '#6c757d';
+        }
+    }
+    
+    notesTextarea.addEventListener('input', updateCharCount);
+    updateCharCount();
+    
+    // Monitor all required fields
+    const allInputs = form.querySelectorAll('input, select, textarea');
+    allInputs.forEach(input => {
+        input.addEventListener('change', updateProgress);
+        input.addEventListener('input', updateProgress);
+    });
+    
+    // Bootstrap form validation
+    form.addEventListener('submit', function(event) {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // Scroll to first invalid field
+            const firstInvalid = form.querySelector(':invalid');
+            if (firstInvalid) {
+                firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstInvalid.focus();
+            }
+        }
+        
+        form.classList.add('was-validated');
+    }, false);
+    
+    // Smooth scroll for form sections
+    const formCards = document.querySelectorAll('.form-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    formCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+    });
+    
+    // Initial progress calculation
+    updateProgress();
+    
+    // Add animations on load
+    setTimeout(() => {
+        document.querySelector('.page-header').style.opacity = '1';
+        document.querySelector('.page-header').style.transform = 'translateY(0)';
+    }, 100);
+})();
+</script>
+
+{% endblock %}

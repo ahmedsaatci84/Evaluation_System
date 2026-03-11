@@ -1,0 +1,242 @@
+{% extends "evaluation_app/base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block extra_css %}
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
+<!-- Custom Evaluation Form CSS -->
+<link rel="stylesheet" href="{% static 'evaluation_app/css/evaluation_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">{% if evaluation %}{% trans "Edit Evaluation" %}{% else %}{% trans "Add Evaluation" %}{% endif %}</h1>
+        
+        <form method="post" class="needs-validation" novalidate id="evaluationForm" 
+              {% if evaluation %}data-evaluation-id="{{ evaluation.id }}"{% endif %}>
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                   
+                        <label for="participant" class="form-label">{% trans "Participant" %} *</label>
+                        <select class="form-select searchable-select" id="participant" name="participant" required>
+                            <option value="">{% if evaluation %}{% trans "Loading..." %}{% else %}{% trans "Select Training Session first" %}{% endif %}</option>
+                            {% if evaluation and evaluation.participant_id %}
+                                <option value="{{ evaluation.participant_id }}" selected>
+                                    {{ evaluation.participant.participant_name }}
+                                </option>
+                            {% endif %}
+                        </select>
+                        <div class="invalid-feedback">
+                            {% trans "Please select a participant" %}
+                        </div>
+                   
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="train" class="form-label">{% trans "Training Session" %} *</label>
+                    <select class="form-select searchable-select" id="train" name="train" required>
+                        <option value="">{% trans "Select Training Session" %}</option>
+                        {% for training in training_sessions %}
+                        <option value="{{ training.trainid }}" 
+                                {% if evaluation and evaluation.train_id == training.trainid %}selected{% endif %}
+                                data-course="{{ training.course.coursename|default:'N/A' }}"
+                                data-professor="{{ training.professor.profname|default:'N/A' }}"
+                                data-location="{{ training.location.locationname|default:'N/A' }}"
+                                data-date="{{ training.train_date|default:'N/A' }}">
+                            Train #{{ training.trainid }} - {{ training.course.coursename|default:"N/A" }} 
+                            {% if training.train_date %}({{ training.train_date }}){% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% trans "Please select a training session" %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Training Session Details (Auto-populated) -->
+            <div class="alert alert-info" id="trainingDetails" style="display: none;">
+                <h6 class="mb-2"><i class="bi bi-info-circle"></i> {% trans "Training Session Details" %}</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>{% trans "Course:" %}</strong> <span id="detailCourse">-</span>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>{% trans "Professor:" %}</strong> <span id="detailProfessor">-</span>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>{% trans "Location:" %}</strong> <span id="detailLocation">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <h5 class="mt-4 mb-3">{% trans "Questions (Rating 1-10)" %}</h5>
+            <div class="row">
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_1" class="form-label">{% trans "كان المدرب على دراية ومعرفة والمام كافي بمواضيع البرنامج" %}</label>
+                    <input type="number" class="form-control" id="ev_q_1" name="ev_q_1" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_1 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_2" class="form-label">{% trans "نجح المدرب في ايصال المعلومة الى المتدربين بسهولة " %}</label>
+                    <input type="number" class="form-control" id="ev_q_2" name="ev_q_2" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_2 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_3" class="form-label">{% trans "كان المدرب ذو مقدرة على احداث التفاعل والمشاركة البناءة وادارة النقاشات كما كان متمكنا في ادارة المدخلات والاستفسارات" %}</label>
+                    <input type="number" class="form-control" id="ev_q_3" name="ev_q_3" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_3 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_4" class="form-label">{% trans "استطاع المدرب ربط المادة التدريبية بالواقع العملي للمتدربين " %}</label>
+                    <input type="number" class="form-control" id="ev_q_4" name="ev_q_4" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_4 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_5" class="form-label">{% trans "استخدام المدرب وسائل وانشطة تدريبية مختلفة في تزويد المشاركين بالمهارات " %}</label>
+                    <input type="number" class="form-control" id="ev_q_5" name="ev_q_5" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_5 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_6" class="form-label">{% trans "كانت المادة التدريبيةالمستخدمة ملائمة ومنسجمة مع اهداف البرنامج" %}</label>
+                    <input type="number" class="form-control" id="ev_q_6" name="ev_q_6" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_6 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_7" class="form-label">{% trans "كانت المواضيع العلمية للبرنامج منظمة ومرتبطة بشكل منطقي مما سهل عملية التعلم المطلوبة " %}</label>
+                    <input type="number" class="form-control" id="ev_q_7" name="ev_q_7" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_7 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_8" class="form-label">{% trans "سلامة وسلاسةاللغة التي كتبت بها المادة التدريبية " %}</label>
+                    <input type="number" class="form-control" id="ev_q_8" name="ev_q_8" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_8 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_9" class="form-label">{% trans "المادة التي تم طرحها وتناولها غطت مفردات البرنامج " %}</label>
+                    <input type="number" class="form-control" id="ev_q_9" name="ev_q_9" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_9 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_10" class="form-label">{% trans "التكنولوجيا الحديثة التي تم طرحها في البرنامج  " %}</label>
+                    <input type="number" class="form-control" id="ev_q_10" name="ev_q_10" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_10 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_11" class="form-label">{% trans "الاشعار بوقت تنفيذ البرنامج التدريبي ومكان انعقاد كان مناسب " %}</label>
+                    <input type="number" class="form-control" id="ev_q_11" name="ev_q_11" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_11 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_12" class="form-label">{% trans "القاعات التدريبية وفرت بيئة تعليمية مريحة " %}</label>
+                    <input type="number" class="form-control" id="ev_q_12" name="ev_q_12" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_12 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_13" class="form-label">{% trans "مكان ووقت وانعقاد البرنامج ساهم في زيادة فاعلية البرنامج " %}</label>
+                    <input type="number" class="form-control" id="ev_q_13" name="ev_q_13" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_13 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_14" class="form-label">{% trans "تنظيم برنامج كان مناسبا من حيث (فترات الاستراحة ,مستلزمات التدريب ,الخ)" %}</label>
+                    <input type="number" class="form-control" id="ev_q_14" name="ev_q_14" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_14 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+                <div class="col-md-12 mb-12">
+                    <label for="ev_q_15" class="form-label">{% trans "مدة البرنامج كانت كافية لتغطية كافة اهداف الدورة التدريبية" %}</label>
+                    <input type="number" class="form-control" id="ev_q_15" name="ev_q_15" min="1" max="10"
+                           value="{% if evaluation %}{{ evaluation.ev_q_15 }}{% endif %}" required>
+                    <div class="invalid-feedback">
+                        {% trans "Value must be between 1-10." %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="ev_q_notes" class="form-label">{% trans "Notes" %}</label>
+                <textarea class="form-control" id="ev_q_notes" name="ev_q_notes" rows="3" maxlength="500">{% if evaluation %}{{ evaluation.ev_q_notes }}{% endif %}</textarea>
+                <div class="form-text">{% trans "Maximum 500 characters" %}</div>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'evaluation_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- jQuery (required for Select2) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- Translations for JavaScript -->
+<script>
+window.evaluationFormTranslations = {
+    noResults: "{% trans 'No results found' %}",
+    searching: "{% trans 'Searching...' %}",
+    inputTooShort: "{% trans 'Please enter more characters' %}",
+    selectProfessor: "{% trans 'Select Professor' %}",
+    selectCourse: "{% trans 'Select Course' %}",
+    selectLocation: "{% trans 'Select Location' %}",
+    selectTrainingSession: "{% trans 'Select Training Session' %}",
+    selectParticipant: "{% trans 'Select Participant' %}",
+    loadingParticipants: "{% trans 'Loading participants...' %}",
+    noParticipants: "{% trans 'No participants available for this training' %}",
+    errorLoading: "{% trans 'Error loading participants' %}",
+    selectTrainingFirst: "{% trans 'Select Training Session first' %}"
+};
+</script>
+
+<!-- Evaluation Form JavaScript -->
+<script src="{% static 'evaluation_app/js/evaluation_form.js' %}"></script>
+
+{% endblock %}
