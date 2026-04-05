@@ -28,14 +28,16 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '192.168.0.112',
+    '192.168.0.108',
+    'MyEvaluation.SGNet'
 ]
 
 # CSRF Settings
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://192.168.0.112:8000',
+    'http://192.168.0.108:8000',
+    'http://MyEvaluation.SGNet:8000'
 ]
 
 CSRF_COOKIE_HTTPONLY = False
@@ -97,10 +99,10 @@ WSGI_APPLICATION = 'EvaluationProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'EvaluationDB',
+        'NAME': 'evaluation_db',
         'USER': 'saatci',
         'PASSWORD': '159632',
-        'HOST': 'DESKTOP-7CBAFOR',
+        'HOST': 'DESKTOP-7CBAFOR\\SQLEXPRESS',
         'PORT': '',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
