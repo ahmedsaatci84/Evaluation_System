@@ -21,25 +21,18 @@
             
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    {% if not is_guest %}
-                        <label for="participant" class="form-label">{% trans "Participant" %} *</label>
-                        <select class="form-select searchable-select" id="participant" name="participant" required>
-                            <option value="">{% if evaluation %}{% trans "Loading..." %}{% else %}{% trans "Select Training Session first" %}{% endif %}</option>
-                            {% if evaluation and evaluation.participant_id %}
-                                <option value="{{ evaluation.participant_id }}" selected>
-                                    {{ evaluation.participant.participant_name }}
-                                </option>
-                            {% endif %}
-                        </select>
-                        <div class="invalid-feedback">
-                            {% trans "Please select a participant" %}
-                        </div>
-                    {% else %}
-                        <label for="participant_name" class="form-label">{% trans "Participant Name" %} *</label>
-                        <input type="text" class="form-control" id="participant_name" name="participant_name" 
-                               value="{{ guest_participant_name }}" readonly required>
-                        <small class="text-muted">{% trans "Auto-filled from your profile" %}</small>
-                    {% endif %}
+                    <label for="participant" class="form-label">{% trans "Participant" %} *</label>
+                    <select class="form-select searchable-select" id="participant" name="participant" required>
+                        <option value="">{% if evaluation %}{% trans "Loading..." %}{% else %}{% trans "Select Training Session first" %}{% endif %}</option>
+                        {% if evaluation and evaluation.participant_id %}
+                            <option value="{{ evaluation.participant_id }}" selected>
+                                {{ evaluation.participant.participant_name }}
+                            </option>
+                        {% endif %}
+                    </select>
+                    <div class="invalid-feedback">
+                        {% trans "Please select a participant" %}
+                    </div>
                 </div>
                 
                 <div class="col-md-6 mb-3">

@@ -129,7 +129,9 @@
                 // Clear existing options and show loading
                 participantSelect.innerHTML = `<option value="">${translations.loadingParticipants || 'Loading participants...'}</option>`;
                 
-                // Build URL with evaluation_id parameter if editing
+                // Build URL. In edit mode, pass evaluation_id so the server
+                // excludes only OTHER evaluations from the "already submitted"
+                // check and keeps the currently-assigned participant selectable.
                 let fetchUrl = `/api/training/${trainId}/participants/`;
                 if (evaluationId) {
                     fetchUrl += `?evaluation_id=${evaluationId}`;
@@ -138,6 +140,12 @@
                 // Fetch participants via AJAX
                 fetch(fetchUrl)
                     .then(response => {
+                        // Handle authentication failures - the API returns 401 JSON
+                        // instead of redirecting to the HTML login page, so we can
+                        // detect this case and show a meaningful message.
+                        if (response.status === 401) {
+                            throw new Error('Session expired. Please refresh the page and log in again.');
+                        }
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }

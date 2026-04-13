@@ -131,61 +131,38 @@ def evaluation_list(request):
 
 @guest_can_create_evaluation
 def evaluation_create(request):
-    # Check if user is guest
-    is_guest = request.user.is_authenticated and hasattr(request.user, 'profile') and request.user.profile.is_guest()
-    
+    """
+    Create a new evaluation.
+
+    All roles (admin, user, guest) see the same form: a Training Session
+    dropdown followed by a Participant dropdown that is populated via AJAX
+    based on the selected training session.  The previous behaviour of
+    auto-filling and locking the Participant field for guest users has been
+    removed — guests now select a participant from the training session list
+    just like any other role.
+    """
     if request.method == 'POST':
-        # For guest users, get or create participant automatically
         participant_id = request.POST.get('participant') or None
-        
-        if is_guest:
-            # Auto-create or get participant from user's name
-            full_name = f"{request.user.first_name} {request.user.last_name}".strip()
-            if not full_name:
-                full_name = request.user.username
-            
-            # Try to find existing participant or create new one
-            participant, created = ParticipantTbl.objects.get_or_create(
-                participant_name=full_name,
-                defaults={
-                    'participant_id': ParticipantTbl.objects.all().aggregate(models.Max('participant_id'))['participant_id__max'] + 1 if ParticipantTbl.objects.exists() else 1,
-                    'participant_email': request.user.email,
-                    'participant_phone': request.user.profile.phone if hasattr(request.user, 'profile') else None
-                }
-            )
-            participant_id = participant.participant_id
-        
         train_id = request.POST.get('train') or None
-        
-        # Check for duplicate evaluation (same participant + same training session)
+
+        # Prevent duplicate evaluations (same participant + same training session).
         if participant_id and train_id:
             existing_evaluation = EvaluationTab.objects.filter(
                 participant_id=participant_id,
                 train_id=train_id
             ).first()
-            
+
             if existing_evaluation:
                 messages.error(
-                    request, 
+                    request,
                     'An evaluation from this participant for this training session already exists. '
                     'Each participant can only submit one evaluation per training session.'
                 )
-                # Re-display form with error
-                participants = list(ParticipantTbl.objects.all())
                 training_sessions = list(TrainTbl.objects.select_related('course', 'professor', 'location').filter(is_active=True))
-                
-                guest_participant_name = None
-                if is_guest:
-                    full_name = f"{request.user.first_name} {request.user.last_name}".strip()
-                    guest_participant_name = full_name if full_name else request.user.username
-                
                 return render(request, 'evaluation_app/evaluation_form.html', {
-                    'participants': participants,
                     'training_sessions': training_sessions,
-                    'is_guest': is_guest,
-                    'guest_participant_name': guest_participant_name
                 })
-        
+
         evaluation = EvaluationTab(
             ev_q_1=request.POST.get('ev_q_1') or None,
             ev_q_2=request.POST.get('ev_q_2') or None,
@@ -204,27 +181,19 @@ def evaluation_create(request):
             ev_q_15=request.POST.get('ev_q_15') or None,
             ev_q_notes=request.POST.get('ev_q_notes'),
             participant_id=participant_id,
-            train_id=request.POST.get('train') or None,
+            train_id=train_id,
         )
         evaluation.save()
         messages.success(request, 'Evaluation created successfully!')
         return redirect('evaluation_list')
-    
-    # Prepare context
-    participants = list(ParticipantTbl.objects.all())
+
+    # GET: render the blank form.
+    # The participant dropdown is intentionally empty on page load; it is
+    # populated dynamically via the AJAX endpoint /api/training/<id>/participants/
+    # once the user selects a Training Session.
     training_sessions = list(TrainTbl.objects.select_related('course', 'professor', 'location').filter(is_active=True))
-    
-    # For guest users, set the auto-filled participant name
-    guest_participant_name = None
-    if is_guest:
-        full_name = f"{request.user.first_name} {request.user.last_name}".strip()
-        guest_participant_name = full_name if full_name else request.user.username
-    
     return render(request, 'evaluation_app/evaluation_form.html', {
-        'participants': participants,
         'training_sessions': training_sessions,
-        'is_guest': is_guest,
-        'guest_participant_name': guest_participant_name
     })
 
 @not_guest_required
@@ -624,40 +593,71 @@ def evaluation_download_pdf(request, pk):
     
     return response
 
-@login_required
 def get_training_participants(request, train_id):
-    """AJAX endpoint to get active participants for a specific training session"""
+    """
+    AJAX endpoint to get participants available for evaluation in a training session.
+
+    Returns only participants who are linked to the training AND have NOT yet
+    submitted an evaluation for it.  When editing an existing evaluation, the
+    participant already assigned to that evaluation is always included so the
+    dropdown is not broken in edit mode.
+
+    Design notes:
+    - Authentication: @login_required is intentionally NOT used here.  That
+      decorator issues an HTML redirect (302) which fetch() follows silently,
+      delivering an HTML login page with status 200.  response.json() then
+      throws a parse error and the dropdown shows "Error loading participants".
+      Instead, this view returns 401 JSON directly so the JavaScript handler
+      can display a meaningful "session expired" message.
+    - IS_Active: IS_Active is a nullable BIT column.  Filtering on is_active=True
+      alone silently excludes rows where the column is NULL.  The Q-filter
+      Q(is_active=True) | Q(is_active__isnull=True) covers both cases.
+
+    Query parameters:
+      - evaluation_id (optional): PK of the evaluation being edited.  Its
+        participant is excluded from the "already submitted" check so they
+        remain selectable in the dropdown.
+
+    Returns JSON: { "participants": [ { "id": <int>, "name": <str> }, ... ] }
+    HTTP 401 JSON if the user is not authenticated.
+    HTTP 400 JSON on any unexpected error.
+    """
+    # Return 401 JSON (not an HTML redirect) for unauthenticated AJAX requests.
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Authentication required'}, status=401)
+
     try:
-        # Get the evaluation ID if we're editing (to allow the current participant)
+        # Optional: PK of the evaluation being edited.  When provided, its
+        # participant is kept selectable even though they already have an eval.
         evaluation_id = request.GET.get('evaluation_id', None)
-        
-        # Get active participants linked to this training session
+
+        # IS_Active is a nullable BIT column; include both True and NULL rows.
         train_participants = TrainParticipantTbl.objects.filter(
             train_id=train_id,
-            is_active=True,
             participant__isnull=False
+        ).filter(
+            Q(is_active=True) | Q(is_active__isnull=True)
         ).select_related('participant')
-        
-        # Get participant IDs who have already submitted evaluations for this training
-        existing_evaluations = EvaluationTab.objects.filter(
-            train_id=train_id
-        ).values_list('participant_id', flat=True)
-        
-        # If editing, exclude the current evaluation from the check
+
+        # Build the set of participant IDs that have already submitted an
+        # evaluation for this training session.
+        existing_evals_qs = EvaluationTab.objects.filter(train_id=train_id)
         if evaluation_id:
-            existing_evaluations = EvaluationTab.objects.filter(
-                train_id=train_id
-            ).exclude(id=evaluation_id).values_list('participant_id', flat=True)
-        
-        participants_data = []
-        for tp in train_participants:
-            # Only include participants who haven't submitted an evaluation yet
-            if tp.participant.participant_id not in existing_evaluations:
-                participants_data.append({
-                    'id': tp.participant.participant_id,
-                    'name': tp.participant.participant_name
-                })
-        
+            # In edit mode: exclude the current evaluation so its participant
+            # still appears as a valid selection in the dropdown.
+            existing_evals_qs = existing_evals_qs.exclude(id=evaluation_id)
+        already_submitted = set(existing_evals_qs.values_list('participant_id', flat=True))
+
+        # Only include participants who have NOT yet submitted an evaluation.
+        participants_data = [
+            {
+                'id': tp.participant.participant_id,
+                'name': tp.participant.participant_name
+            }
+            for tp in train_participants
+            if tp.participant.participant_id not in already_submitted
+        ]
+
         return JsonResponse({'participants': participants_data})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
