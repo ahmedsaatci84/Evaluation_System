@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Secrets — never copy these into the image
+.env
+*.env
+
+# Static files are generated at build time by collectstatic
+# (uncomment the next line if you want to rebuild them inside the image every time)
+# staticfiles/
+
+# Backups
+backups/
+
+# Logs
+logs/
+
+# OS / editor artefacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Windows batch helpers (not needed inside the container)
+*.bat
+
+# Test / CI
+.pytest_cache/
+htmlcov/
+.coverage

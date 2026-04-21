@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,10 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+fgzrh@hgk2z*)3r)*%0r%xveo+cw)f0p&c%j1d_56o-36wjj&'
+# Set SECRET_KEY in your .env file. The fallback is only used at build time (collectstatic).
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-build-time-placeholder-do-not-use-in-production')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -102,11 +104,11 @@ WSGI_APPLICATION = 'EvaluationProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'evaluation_db',
-        'USER': 'saatci',
-        'PASSWORD': '159632',
-        'HOST': 'DESKTOP-7CBAFOR\\SQLEXPRESS',
-        'PORT': '',
+        'NAME': os.environ.get('DB_NAME', 'evaluation_db'),
+        'USER': os.environ.get('DB_USER', 'sa'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', '1433'),
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
             'extra_params': 'TrustServerCertificate=yes',

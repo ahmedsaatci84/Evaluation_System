@@ -1,0 +1,64 @@
+services:
+
+  # ── Django + Waitress ────────────────────────────────────────────────────────
+  web:
+    build: .
+    container_name: evaluation_web
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      # Point the ollama Python library at the ollama container
+      OLLAMA_HOST: http://ollama:11434
+    volumes:
+      - ./logs:/app/logs
+      - ./backups:/app/backups
+      # staticfiles are built into the image but mount for easy inspection
+      - static_volume:/app/staticfiles
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+
+  # ── Microsoft SQL Server 2019 ────────────────────────────────────────────────
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: evaluation_db
+    restart: unless-stopped
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express       # free tier; change to Developer or Standard if needed
+    ports:
+      - "1433:1433"            # expose so you can connect with SSMS from the host
+    volumes:
+      - mssql_data:/var/opt/mssql
+    healthcheck:
+      # $$SA_PASSWORD → $SA_PASSWORD inside the container shell
+      test: >
+        /opt/mssql-tools/bin/sqlcmd
+        -S localhost -U sa -P "$$SA_PASSWORD"
+        -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 40s        # SQL Server is slow to initialise on first run
+
+  # ── Ollama (local LLM) ───────────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama
+    container_name: evaluation_ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      # Models are large — persist them across container rebuilds
+      - ollama_models:/root/.ollama
+
+volumes:
+  mssql_data:
+  ollama_models:
+  static_volume:
