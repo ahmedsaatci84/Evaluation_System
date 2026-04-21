@@ -1,0 +1,74 @@
+{% load i18n %}
+
+<!-- AI Chatbot Widget -->
+<div class="ai-chatbot-widget" id="ai-chatbot-widget" data-status-url="{% url 'ai_status' %}" data-chat-url="{% url 'ai_chatbot' %}">
+    <button class="ai-chat-toggle" id="ai-chat-toggle" title="{% trans 'AI Assistant' %}">
+        <i class="fas fa-robot"></i>
+        <span class="ai-badge" id="ai-status-badge"></span>
+    </button>
+    
+    <div class="ai-chat-window" id="ai-chat-window">
+        <div class="ai-chat-header">
+            <div class="ai-chat-title">
+                <i class="fas fa-robot"></i>
+                <span>{% trans "AI Assistant" %}</span>
+            </div>
+            <div class="ai-chat-actions">
+                <button class="ai-chat-minimize" id="ai-chat-minimize">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="ai-chat-close" id="ai-chat-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="ai-chat-body" id="ai-chat-body">
+            <div class="ai-welcome-message">
+                <div class="ai-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="ai-message">
+                    <p>{% trans "Hello! I'm your AI assistant. I can help you with:" %}</p>
+                    <ul>
+                        <li>{% trans "Understanding evaluation data" %}</li>
+                        <li>{% trans "Finding specific information" %}</li>
+                        <li>{% trans "Generating reports and insights" %}</li>
+                        <li>{% trans "Answering questions about the system" %}</li>
+                    </ul>
+                    <p>{% trans "What would you like to know?" %}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ai-chat-footer">
+            <div class="ai-quick-actions">
+                <button class="ai-quick-btn" data-question="What are the average evaluation scores?">
+                    <i class="fas fa-chart-line"></i>
+                    <span>{% trans "Average Scores" %}</span>
+                </button>
+                <button class="ai-quick-btn" data-question="Show me recent evaluations">
+                    <i class="fas fa-clock"></i>
+                    <span>{% trans "Recent Activity" %}</span>
+                </button>
+                <button class="ai-quick-btn" data-question="Which professors need attention?">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>{% trans "Issues" %}</span>
+                </button>
+            </div>
+            
+            <div class="ai-chat-input-wrapper">
+                <textarea 
+                    class="ai-chat-input" 
+                    id="ai-chat-input" 
+                    placeholder="{% trans 'Ask me anything...' %}"
+                    rows="1"
+                ></textarea>
+                <button class="ai-chat-send" id="ai-chat-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

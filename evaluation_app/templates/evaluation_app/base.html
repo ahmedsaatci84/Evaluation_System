@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="{% static 'evaluation_app/vendor/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'evaluation_app/css/custom.css' %}?v=3.0">
     {% block extra_css %}{% endblock %}
+    {% if user.is_authenticated %}
+    <link rel="stylesheet" href="{% static 'evaluation_app/css/ai_chatbot.css' %}">
+    {% endif %}
 </head>
 <body data-language="{{ CURRENT_LANGUAGE }}">
     <!-- Header -->
@@ -255,9 +258,10 @@
     <!-- Scripts -->
     <script src="{% static 'evaluation_app/vendor/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'evaluation_app/js/main.js' %}?v=3.2"></script>
-    
+    {% block extra_js %}{% endblock %}
     {% if user.is_authenticated %}
-        {% include 'evaluation_app/ai_chatbot_widget.html' %}
+        {% include 'evaluation_app/components/ai_chatbot.html' %}
+        <script src="{% static 'evaluation_app/js/ai_chatbot.js' %}"></script>
     {% endif %}
 </body>
 </html>

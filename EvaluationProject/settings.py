@@ -28,15 +28,18 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '192.168.0.108',
-    'MyEvaluation.SGNet'
+    '127.20.10.2',
+    '192.168.0.106',
+    'MyEvaluation.SGNet',
+    '*',  # Allow all hosts; restrict this in production to specific IPs
 ]
 
 # CSRF Settings
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://192.168.0.108:8000',
+    'http://127.20.10.2:8000',
+    'http://192.168.0.106:8000',
     'http://MyEvaluation.SGNet:8000'
 ]
 

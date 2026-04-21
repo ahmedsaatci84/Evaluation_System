@@ -1,0 +1,1374 @@
+[
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "auth",
+    "model": "user"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "coursetbl"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "evaluationtab"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "locationtbl"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "professortbl"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "trainertbl"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "participanttbl"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "trainparticipanttbl"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "traintbl"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "contactmessage"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "systemsettings"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "fields": {
+    "app_label": "evaluation_app",
+    "model": "userprofile"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "0gwqqt9jzi8137l2oag5chi6jqn5nr64",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAQAP-yNbISO-sjJT1vsHZ94ACypTipEH9HkVJAOzOaN3jat-L3nla_RJhBweWXMYVnqoeID6r3JkKr27qwOBJx2i5uLabX9Wz_BoV6gRkQR-u00sm4QWqZKfHklERCadmGqMYcDYfsJtLIiaUyzBSQGIORboDPF9ChOAc:1vvA2i:T4UV9lx3hRzIXnRUiaiXOXqSJSf0Y7VqoVxIKITEwDA",
+    "expire_date": "2026-03-11T08:14:48.769Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2jptga88ut7gv2hymznc13lq19smcei4",
+  "fields": {
+    "session_data": "eyJfbGFuZ3VhZ2UiOiJja2IifQ:1vxhN8:NKkwVerIP4qUvzrDAWqm2Lt5v2Aev5bF6UnMscstC9k",
+    "expire_date": "2026-03-18T08:14:22.839Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2oewem9mq4q7d6hyg1l8r4w3z84bu6ja",
+  "fields": {
+    "session_data": "eyJfbGFuZ3VhZ2UiOiJhciJ9:1vuN2c:fOlhfBJyTL3u0yG7qOeYQJwLz7QTWpXh85bIiBhWJGU",
+    "expire_date": "2026-03-09T03:55:26.705Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4s3fnjo6iyreivsbdoj6u7dvly0txe0n",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAoFAeX7nsGMjNMpWpoUtqV8e7apAvd_vfef6mE21rS1mRJU1YX5dXpdyPkh9Qd5DvW26x5rusykd4VfdCmhznL83q4fwcFW_nWkcmgAQmdC6MYcvkMPYKwMxFtBNtZsKOL3vTEXqLnLEzobUAwRKjeH-GyOCM:1vuQDf:zrwmYljxGoIz43zhCupzwomDo91Z1Y8OBk9FFWHkvqU",
+    "expire_date": "2026-03-09T07:19:03.562Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "4wj8xx0j0wopefmru8xidnkdy9lw7ten",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCg4FCX7nsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnERVpx-N8L4SHUHfMd6azK2ui4zyV2RB-1yapye18P9OyjYy7c2o_GQyCtgcDoN8ZzVSFpZNNkb9gZVZqetth4QrGLNhgkGcKRyyizeH8mwN54:1wCE7A:IYKir55OhND39m5YiLztAaECq1BkfpxQDQCTIM4jEic",
+    "expire_date": "2026-04-27T10:01:56.575Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "71cx1aoy8amxuxai9zyq0wzm6h8xay1z",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hCg4FCX7nsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnERVpx-N8L4SHUHfMd6azK2ui4zyV2RB-1yapye18P9OyjYy7c2o_GQyCtgcDoN8ZzVSFpZNNkb9gZVZqetth4QrGLNhgkGcKRyyizeH8mwN54:1wCUsk:jbPijPPHdybCnmMz-tnBpzS3LkElfmbwNHIKijcaj8w",
+    "expire_date": "2026-04-28T03:56:10.584Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8l0wwkinoralpe40kq5phq27ohppfqzl",
+  "fields": {
+    "session_data": "eyJfbGFuZ3VhZ2UiOiJhciJ9:1vvBKx:WgvO2zWZ2A_3mtWnZcoqrOkBycyINER55hYe_tLmL9Q",
+    "expire_date": "2026-03-11T09:37:43.961Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "8lgqqbiqbyhoqi2bemf33gcezbi68t4s",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln2-itKes5grb27OIASKZ8KcXeIlALaNzPvpQpuay_bwnMZSJ2VU6ffrWJ78LgDuuN4m3SbxnUeqt4VfdBFXyfi5-Vw_w46Lv1bZ8tOgIiqjRKSSITgkJw1lCN4gIDccjCICCBsnUk1R4EgSdhnr94f7sY3_Q:1w9I8y:9ob5zoQOWnj6DfFpi3MfG2e0csawN2ohejGNnpk3aIw",
+    "expire_date": "2026-04-19T07:43:40.928Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "k67aogb79xai5up2kr6w7kx8hu8f2qp3",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln2-itKes5grb27OIASKZ8KcXeIlALaNzPvpQpuay_bwnMZSJ2VU6ffrWJ78LgDuuN4m3SbxnUeqt4VfdBFXyfi5-Vw_w46Lv1bZ8tOgIiqjRKSSITgkJw1lCN4gIDccjCICCBsnUk1R4EgSdhnr94f7sY3_Q:1wEQ4O:mOAK33Vi_f-ZuXPWH7aZja3ied9bfHP1zPvPZt769e4",
+    "expire_date": "2026-05-03T11:12:08.761Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "m2l4ddnjj9a27o1lknpitejyrhmbhovg",
+  "fields": {
+    "session_data": ".eJxVjEEOgyAQRe_CuiEwCJIuu-8ZyMDMqK3RRHRlevdq4sbt--_9XaURp27DjtVT4aIeKuG29mmrvKSBDujuLGP58nQO9DnKWZd5Wpch61PR11r1eyYeX5d7O-ix9kcdLTsBIso2iG9FAniH5KyhGKAB8MgleoOIAMLWmTbHIOClFW5io35_v7o9YQ:1wF2xI:vlS0p5pB9zxPGYSGhlOitGpqiraVEvHPYsUEv5TIxI4",
+    "expire_date": "2026-05-05T04:43:24.085Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "pwjsb40eb5og5ycg5nj22liliz09hpd5",
+  "fields": {
+    "session_data": "eyJfbGFuZ3VhZ2UiOiJhciJ9:1wCrRm:LjrU56D5amHRm_Adwxk8xlAWTw9eWiOgV4_0Ksbnmso",
+    "expire_date": "2026-04-29T04:01:50.032Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "uaw22kedkhq9vphwbjcf88v83zr345dq",
+  "fields": {
+    "session_data": ".eJxVjDsOgzAQBe_iOrLAZv1JmZ4zWLv2GkiQkfhUUe4eI9HQvpl5XxFmLMOBA4un4CIeIuCxj-HYeA1TqqO-b4Txw-UE6V3LRcal7OtE8lTkRTfZL4nn1-XeDkbcxloDtM4bbdj6RhmVkanzWgGCcuRi0m1OlmL2HRogJqUt1XdAgmiVb8TvD6GZPWs:1vu1rP:BYIMxtinzrN7hoBNIxgmCSOOBeWRsymxx5eJCipLmyA",
+    "expire_date": "2026-03-08T05:18:27.830Z"
+  }
+},
+{
+  "model": "evaluation_app.professortbl",
+  "pk": 209429,
+  "fields": {
+    "profname": "ارجان محمد",
+    "prophone": 7701231013
+  }
+},
+{
+  "model": "evaluation_app.professortbl",
+  "pk": 579304,
+  "fields": {
+    "profname": "مصطفى فيصل",
+    "prophone": 7709778112
+  }
+},
+{
+  "model": "evaluation_app.participanttbl",
+  "pk": 112112,
+  "fields": {
+    "participant_name": "علي هادي",
+    "participant_phone": 7701412233,
+    "participant_email": "/"
+  }
+},
+{
+  "model": "evaluation_app.participanttbl",
+  "pk": 379401,
+  "fields": {
+    "participant_name": "احمد عبدالامير",
+    "participant_phone": 7730100937,
+    "participant_email": "/"
+  }
+},
+{
+  "model": "evaluation_app.locationtbl",
+  "pk": 5,
+  "fields": {
+    "locationname": "قاعة الحقول"
+  }
+},
+{
+  "model": "evaluation_app.locationtbl",
+  "pk": 6,
+  "fields": {
+    "locationname": "قاعة IT"
+  }
+},
+{
+  "model": "evaluation_app.coursetbl",
+  "pk": 8,
+  "fields": {
+    "courseid": "as-20",
+    "coursename": "Nueral Network",
+    "prof": 579304
+  }
+},
+{
+  "model": "evaluation_app.coursetbl",
+  "pk": 9,
+  "fields": {
+    "courseid": "as-30",
+    "coursename": "Machine Learning",
+    "prof": 579304
+  }
+},
+{
+  "model": "evaluation_app.coursetbl",
+  "pk": 10,
+  "fields": {
+    "courseid": "C105-S",
+    "coursename": "Viual C++",
+    "prof": 209429
+  }
+},
+{
+  "model": "evaluation_app.traintbl",
+  "pk": 7,
+  "fields": {
+    "train_date": "2026-03-04",
+    "is_active": true,
+    "course": 8,
+    "professor": 579304,
+    "location": 5
+  }
+},
+{
+  "model": "evaluation_app.traintbl",
+  "pk": 8,
+  "fields": {
+    "train_date": "2026-04-13",
+    "is_active": true,
+    "course": 10,
+    "professor": 209429,
+    "location": 5
+  }
+},
+{
+  "model": "evaluation_app.trainparticipanttbl",
+  "pk": 13,
+  "fields": {
+    "evaluation_date": "2026-03-04",
+    "is_active": true,
+    "train": 7,
+    "participant": 379401
+  }
+},
+{
+  "model": "evaluation_app.trainparticipanttbl",
+  "pk": 14,
+  "fields": {
+    "evaluation_date": "2026-04-13",
+    "is_active": true,
+    "train": 8,
+    "participant": 112112
+  }
+},
+{
+  "model": "evaluation_app.evaluationtab",
+  "pk": 16,
+  "fields": {
+    "ev_q_1": 9,
+    "ev_q_2": 9,
+    "ev_q_3": 10,
+    "ev_q_4": 10,
+    "ev_q_5": 10,
+    "ev_q_6": 9,
+    "ev_q_7": 9,
+    "ev_q_8": 8,
+    "ev_q_9": 8,
+    "ev_q_10": 8,
+    "ev_q_11": 8,
+    "ev_q_12": 8,
+    "ev_q_13": 7,
+    "ev_q_14": 7,
+    "ev_q_15": 7,
+    "ev_q_notes": "",
+    "participant": 379401,
+    "train": 7
+  }
+},
+{
+  "model": "evaluation_app.contactmessage",
+  "pk": 2,
+  "fields": {
+    "name": "أحمد عباس",
+    "email": "ameer@gmail.com",
+    "phone": "07701514455",
+    "subject": "general",
+    "message": "متى اخر دورة لي",
+    "created_at": "2026-03-04T08:10:21.220Z",
+    "is_read": true
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": [
+      "admin",
+      "logentry"
+    ],
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view permission",
+    "content_type": [
+      "auth",
+      "permission"
+    ],
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view group",
+    "content_type": [
+      "auth",
+      "group"
+    ],
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "add_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "change_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "delete_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view user",
+    "content_type": [
+      "auth",
+      "user"
+    ],
+    "codename": "view_user"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view content type",
+    "content_type": [
+      "contenttypes",
+      "contenttype"
+    ],
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view session",
+    "content_type": [
+      "sessions",
+      "session"
+    ],
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Course",
+    "content_type": [
+      "evaluation_app",
+      "coursetbl"
+    ],
+    "codename": "add_coursetbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Course",
+    "content_type": [
+      "evaluation_app",
+      "coursetbl"
+    ],
+    "codename": "change_coursetbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Course",
+    "content_type": [
+      "evaluation_app",
+      "coursetbl"
+    ],
+    "codename": "delete_coursetbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Course",
+    "content_type": [
+      "evaluation_app",
+      "coursetbl"
+    ],
+    "codename": "view_coursetbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Evaluation",
+    "content_type": [
+      "evaluation_app",
+      "evaluationtab"
+    ],
+    "codename": "add_evaluationtab"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Evaluation",
+    "content_type": [
+      "evaluation_app",
+      "evaluationtab"
+    ],
+    "codename": "change_evaluationtab"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Evaluation",
+    "content_type": [
+      "evaluation_app",
+      "evaluationtab"
+    ],
+    "codename": "delete_evaluationtab"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Evaluation",
+    "content_type": [
+      "evaluation_app",
+      "evaluationtab"
+    ],
+    "codename": "view_evaluationtab"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Location",
+    "content_type": [
+      "evaluation_app",
+      "locationtbl"
+    ],
+    "codename": "add_locationtbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Location",
+    "content_type": [
+      "evaluation_app",
+      "locationtbl"
+    ],
+    "codename": "change_locationtbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Location",
+    "content_type": [
+      "evaluation_app",
+      "locationtbl"
+    ],
+    "codename": "delete_locationtbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Location",
+    "content_type": [
+      "evaluation_app",
+      "locationtbl"
+    ],
+    "codename": "view_locationtbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Professor",
+    "content_type": [
+      "evaluation_app",
+      "professortbl"
+    ],
+    "codename": "add_professortbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Professor",
+    "content_type": [
+      "evaluation_app",
+      "professortbl"
+    ],
+    "codename": "change_professortbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Professor",
+    "content_type": [
+      "evaluation_app",
+      "professortbl"
+    ],
+    "codename": "delete_professortbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Professor",
+    "content_type": [
+      "evaluation_app",
+      "professortbl"
+    ],
+    "codename": "view_professortbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Trainer",
+    "content_type": [
+      "evaluation_app",
+      "trainertbl"
+    ],
+    "codename": "add_trainertbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Trainer",
+    "content_type": [
+      "evaluation_app",
+      "trainertbl"
+    ],
+    "codename": "change_trainertbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Trainer",
+    "content_type": [
+      "evaluation_app",
+      "trainertbl"
+    ],
+    "codename": "delete_trainertbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Trainer",
+    "content_type": [
+      "evaluation_app",
+      "trainertbl"
+    ],
+    "codename": "view_trainertbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Participant",
+    "content_type": [
+      "evaluation_app",
+      "participanttbl"
+    ],
+    "codename": "add_participanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Participant",
+    "content_type": [
+      "evaluation_app",
+      "participanttbl"
+    ],
+    "codename": "change_participanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Participant",
+    "content_type": [
+      "evaluation_app",
+      "participanttbl"
+    ],
+    "codename": "delete_participanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Participant",
+    "content_type": [
+      "evaluation_app",
+      "participanttbl"
+    ],
+    "codename": "view_participanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Training Participant",
+    "content_type": [
+      "evaluation_app",
+      "trainparticipanttbl"
+    ],
+    "codename": "add_trainparticipanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Training Participant",
+    "content_type": [
+      "evaluation_app",
+      "trainparticipanttbl"
+    ],
+    "codename": "change_trainparticipanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Training Participant",
+    "content_type": [
+      "evaluation_app",
+      "trainparticipanttbl"
+    ],
+    "codename": "delete_trainparticipanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Training Participant",
+    "content_type": [
+      "evaluation_app",
+      "trainparticipanttbl"
+    ],
+    "codename": "view_trainparticipanttbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Training Session",
+    "content_type": [
+      "evaluation_app",
+      "traintbl"
+    ],
+    "codename": "add_traintbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Training Session",
+    "content_type": [
+      "evaluation_app",
+      "traintbl"
+    ],
+    "codename": "change_traintbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Training Session",
+    "content_type": [
+      "evaluation_app",
+      "traintbl"
+    ],
+    "codename": "delete_traintbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Training Session",
+    "content_type": [
+      "evaluation_app",
+      "traintbl"
+    ],
+    "codename": "view_traintbl"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add Contact Message",
+    "content_type": [
+      "evaluation_app",
+      "contactmessage"
+    ],
+    "codename": "add_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change Contact Message",
+    "content_type": [
+      "evaluation_app",
+      "contactmessage"
+    ],
+    "codename": "change_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete Contact Message",
+    "content_type": [
+      "evaluation_app",
+      "contactmessage"
+    ],
+    "codename": "delete_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view Contact Message",
+    "content_type": [
+      "evaluation_app",
+      "contactmessage"
+    ],
+    "codename": "view_contactmessage"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add System Setting",
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "codename": "add_systemsettings"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change System Setting",
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "codename": "change_systemsettings"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete System Setting",
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "codename": "delete_systemsettings"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view System Setting",
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "codename": "view_systemsettings"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can add User Profile",
+    "content_type": [
+      "evaluation_app",
+      "userprofile"
+    ],
+    "codename": "add_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can change User Profile",
+    "content_type": [
+      "evaluation_app",
+      "userprofile"
+    ],
+    "codename": "change_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can delete User Profile",
+    "content_type": [
+      "evaluation_app",
+      "userprofile"
+    ],
+    "codename": "delete_userprofile"
+  }
+},
+{
+  "model": "auth.permission",
+  "fields": {
+    "name": "Can view User Profile",
+    "content_type": [
+      "evaluation_app",
+      "userprofile"
+    ],
+    "codename": "view_userprofile"
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$hQVIykIHoPWQVHWQOMSDlS$puMJwc0ujPE4iKIjI5T5B7y8dMXIrm4EnOpjFBpiI/w=",
+    "last_login": "2026-02-17T07:24:48.440Z",
+    "is_superuser": true,
+    "username": "ali",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-02-16T04:52:03.362Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$yTlR9GMaZbDrKJfWigwrQM$zK9M2kJ7fWaG19BTqWCv4kf2d/E56jF7Ph1UCt1jZH8=",
+    "last_login": "2026-02-16T08:54:10.608Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@example.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-02-16T04:53:33.417Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$FaOGswGXTOVgkpqkxWdTuu$O3VC9TGqFUHxQ9CB9qYFFJeOTj6DAZONfyHKRfnZuek=",
+    "last_login": "2026-04-21T04:43:24.059Z",
+    "is_superuser": false,
+    "username": "ahmed",
+    "first_name": "احمد",
+    "last_name": "عبدالامير",
+    "email": "ahmedsaatci@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-16T05:32:23.930Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$720000$m1DlK2TzwmYdIa1BEopKkk$LONxOe1iZKdb5+i3uXOZ2WKUzYuiYC1A8WNng9X/Sog=",
+    "last_login": "2026-04-14T05:17:48.834Z",
+    "is_superuser": true,
+    "username": "dell",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin2@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-02-16T09:00:50.570Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$llvmEI21NkoIcOY66xE5i0$kL2UmIdFeYRfDyRQbwKHXaCiiImQMIy5QupXSH5Mfv0=",
+    "last_login": "2026-02-16T09:15:52.838Z",
+    "is_superuser": false,
+    "username": "noor",
+    "first_name": "نور ",
+    "last_name": "صبري",
+    "email": "noor@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-02-16T09:14:53.938Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "evaluation_app.userprofile",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "admin"
+    ],
+    "role": "guest",
+    "phone": null,
+    "created_at": "2026-02-16T04:53:33.643Z",
+    "updated_at": "2026-02-16T04:53:33.652Z"
+  }
+},
+{
+  "model": "evaluation_app.userprofile",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "ahmed"
+    ],
+    "role": "admin",
+    "phone": "07701514455",
+    "created_at": "2026-02-16T05:32:24.305Z",
+    "updated_at": "2026-04-21T04:43:24.071Z"
+  }
+},
+{
+  "model": "evaluation_app.userprofile",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "ali"
+    ],
+    "role": "guest",
+    "phone": null,
+    "created_at": "2026-02-16T08:38:42.699Z",
+    "updated_at": "2026-02-16T08:39:37.628Z"
+  }
+},
+{
+  "model": "evaluation_app.userprofile",
+  "pk": 4,
+  "fields": {
+    "user": [
+      "dell"
+    ],
+    "role": "guest",
+    "phone": null,
+    "created_at": "2026-02-16T09:00:50.791Z",
+    "updated_at": "2026-04-14T05:17:48.837Z"
+  }
+},
+{
+  "model": "evaluation_app.userprofile",
+  "pk": 5,
+  "fields": {
+    "user": [
+      "noor"
+    ],
+    "role": "admin",
+    "phone": "07701517329",
+    "created_at": "2026-02-16T09:14:54.493Z",
+    "updated_at": "2026-02-16T09:14:54.495Z"
+  }
+},
+{
+  "model": "evaluation_app.systemsettings",
+  "pk": 1,
+  "fields": {
+    "is_system_open": true,
+    "closure_message": "النظام مغلق لاغراض الصيانة البرمجية ..\r\nالرجاء معاودة الاتصال في وقت لاحق ..\r\nتحيات قسم التدريب و التطوير",
+    "closure_start_date": "2026-02-22T09:55:35.387Z",
+    "closure_end_date": "2026-02-22T08:15:00Z",
+    "allow_admin_access": true,
+    "last_updated": "2026-02-23T07:10:40.872Z",
+    "updated_by": [
+      "dell"
+    ]
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-02-16T09:08:24.369Z",
+    "user": [
+      "dell"
+    ],
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "object_id": "1",
+    "object_repr": "System Status: Open",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"System Open\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-02-16T09:16:53.462Z",
+    "user": [
+      "dell"
+    ],
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "object_id": "1",
+    "object_repr": "System Status: Open",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"System Open\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2026-02-17T07:10:53.291Z",
+    "user": [
+      "dell"
+    ],
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "object_id": "1",
+    "object_repr": "System Status: Open",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"System Open\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2026-02-22T05:17:29.632Z",
+    "user": [
+      "dell"
+    ],
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "object_id": "1",
+    "object_repr": "System Status: Open",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"System Open\", \"Closure Message\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2026-02-23T07:10:40.876Z",
+    "user": [
+      "dell"
+    ],
+    "content_type": [
+      "evaluation_app",
+      "systemsettings"
+    ],
+    "object_id": "1",
+    "object_repr": "System Status: Open",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"System Open\"]}}]"
+  }
+}
+]

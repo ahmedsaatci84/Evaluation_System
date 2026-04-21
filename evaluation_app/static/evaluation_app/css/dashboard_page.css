@@ -1,0 +1,93 @@
+/* ================================
+   Dashboard Page Specific Styles
+   ================================ */
+
+.role-badge {
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.role-admin {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.role-user {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.role-guest {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+}
+
+.permission-item {
+    padding: 10px 0;
+    font-size: 1rem;
+}
+
+.permission-item i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.profile-stat-card {
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.profile-avatar {
+    margin-bottom: 1rem;
+}
+
+.system-control-card {
+    border-left: 5px solid #667eea;
+}
+
+.system-status-display {
+    padding: 20px;
+    text-align: center;
+}
+
+.status-badge-large {
+    display: block;
+    margin: 15px 0;
+}
+
+.badge-success-large {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.badge-danger-large {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    animation: pulse-danger 2s ease-in-out infinite;
+}
+
+@keyframes pulse-danger {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(231, 76, 60, 0.6);
+    }
+}
+
+.system-controls {
+    padding: 20px;
+}

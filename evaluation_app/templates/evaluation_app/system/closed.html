@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+{% get_current_language as CURRENT_LANGUAGE %}
+<html lang="{{ CURRENT_LANGUAGE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "System Closed" %}</title>
+    <link href="{% static 'evaluation_app/vendor/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'evaluation_app/vendor/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'evaluation_app/css/closed.css' %}">
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle-btn" id="theme-toggle">
+        <i class="fas fa-sun sun-icon"></i>
+        <i class="fas fa-moon moon-icon"></i>
+    </button>
+    
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="language-btn" id="language-toggle">
+            <i class="fas fa-language"></i>
+            <span class="current-lang">{{ CURRENT_LANGUAGE|upper }}</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="language-dropdown" id="language-dropdown">
+            <a href="{% url 'set_language' %}?language=en" class="language-option {% if CURRENT_LANGUAGE == 'en' %}active{% endif %}" data-lang="en">
+                <i class="fas fa-globe-americas"></i>
+                <span>English</span>
+                <span class="lang-code">EN</span>
+            </a>
+            <a href="{% url 'set_language' %}?language=ar" class="language-option {% if CURRENT_LANGUAGE == 'ar' %}active{% endif %}" data-lang="ar">
+                <i class="fas fa-moon"></i>
+                <span>العربية</span>
+                <span class="lang-code">AR</span>
+            </a>
+            <a href="{% url 'set_language' %}?language=tr" class="language-option {% if CURRENT_LANGUAGE == 'tr' %}active{% endif %}" data-lang="tr">
+                <i class="fas fa-star-and-crescent"></i>
+                <span>Türkçe</span>
+                <span class="lang-code">TR</span>
+            </a>
+            <a href="{% url 'set_language' %}?language=ckb" class="language-option {% if CURRENT_LANGUAGE == 'ckb' %}active{% endif %}" data-lang="ckb">
+                <i class="fas fa-mountain"></i>
+                <span>کوردی</span>
+                <span class="lang-code">CKB</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="maintenance-container">
+        <div class="maintenance-icon">
+            <i class="fas fa-tools"></i>
+        </div>
+        
+        <h1>{% trans "System Maintenance" %}</h1>
+        
+        <div class="message">
+            {{ closure_message }}
+        </div>
+        
+        <div class="spinner"></div>
+        
+        {% if closure_end_date %}
+        <div class="info-box">
+            <div class="label">{% trans "Expected to be back" %}</div>
+            <div class="value">
+                <i class="far fa-clock"></i>
+                {{ closure_end_date|date:"F d, Y - H:i" }}
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="contact-info">
+            <p>
+                <i class="fas fa-info-circle"></i>
+                {% trans "We apologize for any inconvenience. Our team is working to improve your experience." %}
+            </p>
+            <p>
+                <strong>{% trans "Need urgent assistance?" %}</strong><br>
+                {% trans "Contact" %}: ahmedsaatci@gmail.com
+            </p>
+        </div>
+        
+        <div class="admin-login">
+            <a href="/admin/">
+                <i class="fas fa-user-shield"></i>
+                {% trans "Admin Login" %}
+            </a>
+        </div>
+    </div>
+    
+    <script src="{% static 'evaluation_app/js/closed.js' %}"></script>
+</body>
+</html>

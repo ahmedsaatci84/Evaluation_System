@@ -396,6 +396,68 @@ body[data-theme="dark"] .digital-watch {
 }
 
 /* ================================
+   Header Auth Links Styles
+   ================================ */
+
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+}
+
+.auth-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+.auth-btn i {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.logout-btn {
+    background: rgba(244, 67, 54, 0.2);
+}
+
+.logout-btn:hover {
+    background: rgba(244, 67, 54, 0.3);
+}
+
+.register-btn {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.register-btn:hover {
+    box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+}
+
+.auth-username {
+    font-weight: 600;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ================================
    Theme Toggle Styles
    ================================ */
 
@@ -1242,6 +1304,28 @@ body[data-theme="dark"] .form-select:focus {
    Responsive Design
    ================================ */
 
+@media (max-width: 992px) {
+    :root {
+        --sidebar-width: 200px;
+    }
+
+    .digital-date {
+        display: none;
+    }
+
+    .auth-username {
+        max-width: 80px;
+    }
+
+    .content-area {
+        padding: 24px;
+    }
+
+    .header-brand span {
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 768px) {
     .header-right {
         gap: 8px;
@@ -1300,53 +1384,60 @@ body[data-theme="dark"] .form-select:focus {
         flex-direction: row;
     }
 
+    /* Auth buttons on mobile - icon only */
+    .auth-links {
+        gap: 5px;
+    }
+
+    .auth-btn span,
+    .auth-username {
+        display: none;
+    }
+
+    .auth-btn {
+        padding: 8px 10px;
+    }
+
+    /* Footer on mobile */
+    .footer-wrapper {
+        height: auto;
+        min-height: 50px;
+        padding: 10px 15px;
+        position: fixed;
+        bottom: 0;
+    }
+
     .footer-content {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: space-between;
+        align-items: center;
     }
 
     .footer-links,
+    .footer-weather,
     .footer-stats {
-        flex-direction: column;
-        gap: 8px;
+        display: none;
     }
 
-    .footer-weather {
-        min-width: auto;
-        width: 100%;
-        justify-content: center;
-        padding: 6px 12px;
+    .footer-text {
         font-size: 12px;
     }
 
-    .weather-icon {
-        font-size: 20px;
-    }
-
-    .weather-temp {
-        font-size: 14px;
-    }
-
-    .weather-location,
-    .weather-description {
-        font-size: 10px;
+    /* Adjust main-wrapper and sidebar bottom for auto-height footer */
+    .main-wrapper {
+        left: 0;
+        bottom: 50px;
     }
 
     .sidebar {
-        width: 100%;
-        left: -100%;
+        width: 280px;
+        left: -280px;
+        height: calc(100vh - 70px - 50px);
     }
 
     .sidebar.active {
-        left: 0;
-    }
-
-    .content-area {
-        padding: 20px;
-    }
-
-    /* Reset main-wrapper on mobile */
-    .main-wrapper {
         left: 0;
     }
 
@@ -1354,14 +1445,23 @@ body[data-theme="dark"] .form-select:focus {
         left: 0;
     }
 
+    .sidebar-overlay {
+        top: 70px;
+        height: calc(100vh - 70px - 50px);
+    }
+
     .sidebar-overlay.active {
         display: block;
+    }
+
+    .content-area {
+        padding: 20px;
     }
 }
 
 @media (max-width: 480px) {
     .header-wrapper {
-        height: 64px;
+        height: 60px;
         padding: 0 8px;
     }
 
@@ -1380,7 +1480,7 @@ body[data-theme="dark"] .form-select:focus {
     }
 
     .header-right {
-        gap: 6px;
+        gap: 5px;
     }
 
     .language-btn {
@@ -1405,32 +1505,13 @@ body[data-theme="dark"] .form-select:focus {
         min-width: 140px;
     }
 
+    /* Hide digital watch on very small screens */
     .digital-watch {
-        padding: 4px 8px;
-        gap: 4px;
-    }
-
-    .digital-watch i {
-        font-size: 12px;
-    }
-
-    .digital-time {
-        font-size: 14px;
-        letter-spacing: 1px;
-    }
-
-    .digital-date {
-        font-size: 9px;
-        padding: 0 4px;
-    }
-
-    .digital-ampm {
-        font-size: 9px;
-        padding: 1px 4px;
+        display: none;
     }
 
     .content-area {
-        padding: 15px;
+        padding: 12px;
     }
 
     .table-responsive {
@@ -1463,44 +1544,30 @@ body[data-theme="dark"] .form-select:focus {
     }
 
     .footer-wrapper {
-        height: 60px;
-        padding: 10px 15px;
+        height: auto;
+        min-height: 44px;
+        padding: 8px 12px;
     }
 
     .footer-text {
         font-size: 11px;
     }
 
-    .footer-weather {
-        padding: 4px 8px;
-        gap: 6px;
-    }
-
-    .weather-icon {
-        font-size: 18px;
-    }
-
-    .weather-temp {
-        font-size: 12px;
-    }
-
-    .weather-location {
-        font-size: 9px;
-    }
-
     .main-wrapper {
-        top: 64px;
-        bottom: 60px;
+        top: 60px;
+        bottom: 44px;
     }
 
     .sidebar {
-        top: 64px;
-        height: calc(100vh - 64px - 60px);
+        top: 60px;
+        width: 260px;
+        left: -260px;
+        height: calc(100vh - 60px - 44px);
     }
 
     .sidebar-overlay {
-        top: 64px;
-        height: calc(100vh - 64px - 60px);
+        top: 60px;
+        height: calc(100vh - 60px - 44px);
     }
 }
 
@@ -2086,7 +2153,19 @@ body[data-theme="dark"] .form-select:focus {
     color: #667eea;
 }
 
+/* Responsive header title on mobile */
 @media (max-width: 768px) {
+    .d-flex.justify-content-between.align-items-center.mb-4 h1 {
+        font-size: 20px;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-4 {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px;
+        padding: 16px;
+    }
+
     .page-header h1 {
         font-size: 2rem;
     }
@@ -2262,8 +2341,10 @@ button:focus-visible,
     margin-bottom: 24px !important;
 }
 
-.content-area {
-    padding: 32px;
+@media (min-width: 769px) {
+    .content-area {
+        padding: 32px;
+    }
 }
 
 /* ================================

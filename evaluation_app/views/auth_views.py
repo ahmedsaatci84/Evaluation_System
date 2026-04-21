@@ -1,0 +1,94 @@
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+from ..models import EvaluationTab, ContactMessage, SystemSettings
+
+
+def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    if request.method == 'POST':
+        user = authenticate(
+            request,
+            username=request.POST.get('username'),
+            password=request.POST.get('password'),
+        )
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'Welcome back, {user.username}!')
+            return redirect(request.GET.get('next', 'home'))
+        messages.error(request, 'Invalid username or password.')
+    return render(request, 'evaluation_app/auth/login.html')
+
+
+def user_register(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password_confirm = request.POST.get('password_confirm')
+        first_name = request.POST.get('first_name', '')
+        last_name = request.POST.get('last_name', '')
+        phone = request.POST.get('phone', '')
+        role = request.POST.get('role', 'guest')
+
+        if not username or not email or not password:
+            messages.error(request, 'Please fill in all required fields.')
+            return render(request, 'evaluation_app/auth/register.html')
+        if password != password_confirm:
+            messages.error(request, 'Passwords do not match.')
+            return render(request, 'evaluation_app/auth/register.html')
+        if len(password) < 6:
+            messages.error(request, 'Password must be at least 6 characters long.')
+            return render(request, 'evaluation_app/auth/register.html')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already exists.')
+            return render(request, 'evaluation_app/auth/register.html')
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Email already registered.')
+            return render(request, 'evaluation_app/auth/register.html')
+        if role not in ['admin', 'user', 'guest']:
+            role = 'guest'
+        try:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+            )
+            user.profile.role = role
+            user.profile.phone = phone
+            user.profile.save()
+            messages.success(request, f'Account created successfully! You can now log in as {role}.')
+            return redirect('login')
+        except Exception as e:
+            messages.error(request, f'Error creating account: {str(e)}')
+            return render(request, 'evaluation_app/auth/register.html')
+    return render(request, 'evaluation_app/auth/register.html')
+
+
+@login_required
+def user_logout(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'You have been logged out successfully.')
+        return redirect('home')
+    return render(request, 'evaluation_app/auth/logout_confirm.html')
+
+
+@login_required
+def user_dashboard(request):
+    user_profile = request.user.profile
+    context = {'user_profile': user_profile}
+    if user_profile.is_admin():
+        context['total_users'] = User.objects.count()
+        context['total_evaluations'] = EvaluationTab.objects.count()
+        context['unread_contacts'] = ContactMessage.get_unread_count()
+        context['system_settings'] = SystemSettings.get_settings()
+    return render(request, 'evaluation_app/system/dashboard.html', context)
